@@ -1,0 +1,17 @@
+server:
+  port: 1201
+
+spring:
+  application:
+    name: gr-ms2-resource
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8764
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

@@ -1,0 +1,33 @@
+server:
+  port: 7766
+spring:
+  application:
+    name: gr-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: gr-ms1-resource
+          uri: lb://GR-MS1-RESOURCE
+          predicates:
+            - Path=/ms1/**
+          filters:
+            - StripPrefix=1
+        - id: gr-ms1-resource
+          uri: lb://GR-MS2-RESOURCE
+          predicates:
+            - Path=/ms2/**
+          filters:
+            - StripPrefix=1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8764
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

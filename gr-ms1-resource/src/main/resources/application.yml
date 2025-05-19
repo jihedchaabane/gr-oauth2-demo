@@ -1,0 +1,28 @@
+server:
+  port: 1200
+
+spring:
+  application:
+    name: gr-ms1-resource
+
+  security:
+    oauth2:
+      client:
+        registration:
+          ms1:
+            client-id: gr-ms1-resource
+            client-secret: secret1
+            scope: ms1.read,ms2.read
+            authorization-grant-type: client_credentials
+            provider: gr-auth-server
+        provider:
+          gr-auth-server:
+            token-uri: http://localhost:8764/oauth2/token
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8764
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

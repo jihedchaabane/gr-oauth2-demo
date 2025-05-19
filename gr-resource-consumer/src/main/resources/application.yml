@@ -1,0 +1,25 @@
+server:
+  port: 1202
+
+spring:
+  application:
+    name: gr-resource-consumer
+
+  security:
+    oauth2:
+      client:
+        registration:
+          consumer:
+            client-id: gr-resource-consumer
+            client-secret: consumer
+            scope: ms1.read,ms2.read
+            authorization-grant-type: client_credentials
+            provider: gr-auth-server
+        provider:
+          gr-auth-server:
+            token-uri: http://localhost:8764/oauth2/token
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
