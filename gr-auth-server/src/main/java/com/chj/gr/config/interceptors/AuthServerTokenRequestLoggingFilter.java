@@ -43,8 +43,8 @@ public class AuthServerTokenRequestLoggingFilter extends OncePerRequestFilter {
         
         if (request.getRequestURI().endsWith("/oauth2/token") && response.getStatus() == 200) {
             logger.info("Token généré avec succès pour clientId={}, scopes={}",
-                    request.getParameter("client_id") != null ? request.getParameter("client_id") : "NON FOURNI",
-                    request.getParameter("scope") != null ? request.getParameter("scope") : "NON FOURNI");
+                    request.getParameter("client_id") != null 	? request.getParameter("client_id") : "NON FOURNI",
+                    request.getParameter("scope") != null 		? request.getParameter("scope") 	: "NON FOURNI");
         }
     }
 }
