@@ -21,12 +21,46 @@ public class WebClientConfig {
 	    <artifactId>spring-boot-starter-webflux</artifactId>
 	</dependency>
 	**/
+	
+	/**
+	 * 
+	 * WORKS FINE.
+	 * 
+	 */
+	/**
 	@Bean
 	@LoadBalanced
-	WebClient webClient(OAuth2AuthorizedClientManager authorizedClientManager) {
+    WebClient webClient(
+    		ClientRegistrationRepository clientRegistrationRepository,
+    		OAuth2AuthorizedClientRepository authorizedClientRepository,
+    		ReactorLoadBalancerExchangeFilterFunction lbFunction) {
+        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2Client =
+                new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepository, authorizedClientRepository);
+        oauth2Client.setDefaultOAuth2AuthorizedClient(true);
+        return WebClient.builder()
+                .filter(lbFunction)
+                .apply(oauth2Client.oauth2Configuration())
+                .build();
+    }
+    */
+	
+	/**
+	 * 
+	 * OR : WORKS FINE.
+	 * 
+	 */
+	
+	/** 
+	*/
+	@Bean
+	@LoadBalanced
+	WebClient webClient(OAuth2AuthorizedClientManager authorizedClientManager,
+    		ReactorLoadBalancerExchangeFilterFunction lbFunction) {
 		ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2Client =
 				new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
+		oauth2Client.setDefaultOAuth2AuthorizedClient(true);
 		return WebClient.builder()
+				.filter(lbFunction)
 				.apply(oauth2Client.oauth2Configuration())
 				.build();
 	}
@@ -46,25 +80,5 @@ public class WebClientConfig {
 
 		return authorizedClientManager;
 	}
-	/**
-	 * 
-	 * 
-	 * 
-	 */
-	@Bean
-	@LoadBalanced
-    WebClient webClient(ClientRegistrationRepository clientRegistrations,
-                               OAuth2AuthorizedClientRepository authorizedClients,
-                               ReactorLoadBalancerExchangeFilterFunction lbFunction) {
-		
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 =
-                new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrations, authorizedClients);
-        oauth2.setDefaultOAuth2AuthorizedClient(true);
-        return WebClient.builder()
-                .filter(lbFunction)
-                .apply(oauth2.oauth2Configuration())
-                .build();
-    }
-	
 	
 }
