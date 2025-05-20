@@ -21,6 +21,7 @@ public class MsCommonConsumerSecurityConfig {
             
             .antMatchers("/actuator/**").permitAll()
             .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
+
         return http.build();
     }
 }
