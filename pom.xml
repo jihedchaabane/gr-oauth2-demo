@@ -36,5 +36,6 @@
 		<module>gr-ms1-resource</module>
 		<module>gr-ms2-resource</module>
 		<module>gr-resource-consumer</module>
+		<module>gr-resource-consumer-webclient</module>
 	</modules>
 </project>

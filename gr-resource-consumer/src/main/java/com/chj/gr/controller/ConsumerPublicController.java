@@ -15,7 +15,7 @@ public class ConsumerPublicController {
     public String callMs1Public() {
     	
         String url = "http://GR-API-GATEWAY/ms1/gr-ms1-resource/public/ms2";
-        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY : " + restTemplate.getForObject(url, String.class);
+        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY ==> " + restTemplate.getForObject(url, String.class);
     }
     
 
@@ -24,6 +24,6 @@ public class ConsumerPublicController {
     public String callMs4Public() {
     	
         String url = "http://GR-API-GATEWAY/ms2/gr-ms2-resource/public/get";
-        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY : " + restTemplate.getForObject(url, String.class);
+        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY ==> " + restTemplate.getForObject(url, String.class);
     }
 }

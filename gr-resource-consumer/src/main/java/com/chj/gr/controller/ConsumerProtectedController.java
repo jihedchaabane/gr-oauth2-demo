@@ -18,7 +18,7 @@ public class ConsumerProtectedController {
     private RestTemplate restTemplate;
 
     @GetMapping("/call-ms1-protected")
-    public String callMs1(@RegisteredOAuth2AuthorizedClient("consumer") OAuth2AuthorizedClient authorizedClient) {
+    public String callMs1(@RegisteredOAuth2AuthorizedClient("consumer-resttemplate") OAuth2AuthorizedClient authorizedClient) {
     	
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(authorizedClient.getAccessToken().getTokenValue());
@@ -30,11 +30,11 @@ public class ConsumerProtectedController {
                 entity,
                 String.class
         );
-        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY : " + response.getBody();
+        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY ==> " + response.getBody();
     }
     
     @GetMapping("/call-ms2-protected")
-    public String callMs2(@RegisteredOAuth2AuthorizedClient("consumer") OAuth2AuthorizedClient authorizedClient) {
+    public String callMs2(@RegisteredOAuth2AuthorizedClient("consumer-resttemplate") OAuth2AuthorizedClient authorizedClient) {
     	
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(authorizedClient.getAccessToken().getTokenValue());
@@ -46,6 +46,6 @@ public class ConsumerProtectedController {
                 entity,
                 String.class
         );
-        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY : " + response.getBody();
+        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY ==> " + response.getBody();
     }
 }

@@ -150,7 +150,27 @@ public class AuthServerSecurityConfig {
                 ms3Client.getScopes(),
                 ms3Client.getAuthorizationGrantTypes());
         
-        return new InMemoryRegisteredClientRepository(ms1Client, ms2Client, ms3Client);
+        RegisteredClient ms4Client = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("gr-resource-consumer-webclient")
+                .clientSecret("{noop}consumer-webclient")
+                .scope("ms1.read")
+                .scope("ms2.read")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .tokenSettings(
+                		/**
+                		 * Expiration de 1 jour.
+                		 */
+                		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
+                )
+                .build();
+        logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
+        		ms4Client.getClientId(),
+        		ms4Client.getScopes(),
+        		ms4Client.getAuthorizationGrantTypes());
+        
+        return new InMemoryRegisteredClientRepository(ms1Client, ms2Client, ms3Client, ms4Client);
     }
 
     @Bean

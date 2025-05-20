@@ -34,6 +34,6 @@ public class Resource1ProtectedController {
                 entity,
                 String.class
         );
-        return "GR-MS1-RESOURCE [SECURED:ms1.read] ===>" + response.getBody();
+        return "GR-MS1-RESOURCE [SECURED:ms1.read] ===> " + response.getBody();
 	}
 }
