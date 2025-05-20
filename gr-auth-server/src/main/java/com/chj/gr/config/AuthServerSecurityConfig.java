@@ -130,7 +130,7 @@ public class AuthServerSecurityConfig {
         		ms2Client.getScopes(),
         		ms2Client.getAuthorizationGrantTypes());
         
-        RegisteredClient ms3Client = RegisteredClient.withId(UUID.randomUUID().toString())
+        RegisteredClient restTemplateClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-resource-consumer-resttemplate")
                 .clientSecret("{noop}consumer-resttemplate")
                 .scope("ms1.read")
@@ -146,11 +146,11 @@ public class AuthServerSecurityConfig {
                 )
                 .build();
         logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
-                ms3Client.getClientId(),
-                ms3Client.getScopes(),
-                ms3Client.getAuthorizationGrantTypes());
+        		restTemplateClient.getClientId(),
+        		restTemplateClient.getScopes(),
+        		restTemplateClient.getAuthorizationGrantTypes());
         
-        RegisteredClient ms4Client = RegisteredClient.withId(UUID.randomUUID().toString())
+        RegisteredClient webclient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-resource-consumer-webclient")
                 .clientSecret("{noop}consumer-webclient")
                 .scope("ms1.read")
@@ -166,11 +166,31 @@ public class AuthServerSecurityConfig {
                 )
                 .build();
         logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
-        		ms4Client.getClientId(),
-        		ms4Client.getScopes(),
-        		ms4Client.getAuthorizationGrantTypes());
+        		webclient.getClientId(),
+        		webclient.getScopes(),
+        		webclient.getAuthorizationGrantTypes());
         
-        return new InMemoryRegisteredClientRepository(ms1Client, ms2Client, ms3Client, ms4Client);
+        RegisteredClient feignClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("gr-resource-consumer-feign")
+                .clientSecret("{noop}consumer-feign")
+                .scope("ms1.read")
+                .scope("ms2.read")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .tokenSettings(
+                		/**
+                		 * Expiration de 1 jour.
+                		 */
+                		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
+                )
+                .build();
+        logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
+        		feignClient.getClientId(),
+        		feignClient.getScopes(),
+        		feignClient.getAuthorizationGrantTypes());
+        
+        return new InMemoryRegisteredClientRepository(ms1Client, ms2Client, restTemplateClient, webclient, feignClient);
     }
 
     @Bean
