@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chj.gr.clients.FeignGatewayPublicClient;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 public class ConsumerFeignPublicController {
 
@@ -14,7 +16,7 @@ public class ConsumerFeignPublicController {
 		this.feignGatewayPublicClient = feignGatewayPublicClient;
 	}
 
-
+	@Operation(summary = "Call MS1 public endpoint")
 	@GetMapping("/call-ms1-public")
     public String callMs1Public() {
     	
@@ -23,6 +25,7 @@ public class ConsumerFeignPublicController {
         return "GR-RESOURCE-CONSUMER-FEIGN ==> GR-API-GATEWAY ==> " + responseJson;
     }
 
+	@Operation(summary = "Call MS2 public endpoint")
     @GetMapping("/call-ms2-public")
     public String callMs2Public() {
     	

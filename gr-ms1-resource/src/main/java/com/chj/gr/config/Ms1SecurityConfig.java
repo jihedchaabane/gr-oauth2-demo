@@ -17,6 +17,9 @@ public class Ms1SecurityConfig {
         http
             .authorizeRequests()
             .antMatchers("/gr-ms1-resource/public/**").permitAll()
+            
+            .antMatchers("/actuator/**").permitAll()
+            .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .oauth2ResourceServer()

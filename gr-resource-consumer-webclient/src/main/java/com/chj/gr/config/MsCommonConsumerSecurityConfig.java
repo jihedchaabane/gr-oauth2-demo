@@ -17,7 +17,11 @@ public class MsCommonConsumerSecurityConfig {
         http
             .authorizeRequests()
     		.antMatchers("/call-ms1-public").permitAll()
-    		.antMatchers("/call-ms2-public").permitAll();
+    		.antMatchers("/call-ms2-public").permitAll()
+            
+            .antMatchers("/actuator/**").permitAll()
+            .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
+
         return http.build();
     }
 }

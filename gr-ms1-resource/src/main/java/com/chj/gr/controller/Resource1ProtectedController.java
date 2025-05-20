@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/gr-ms1-resource/protected")
 public class Resource1ProtectedController {
@@ -20,9 +24,10 @@ public class Resource1ProtectedController {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Operation(summary = "Call MS2 protected endpoint", security = @SecurityRequirement(name = "oauth2"))
 	@GetMapping("/ms2")
 	@PreAuthorize("hasAuthority('SCOPE_ms1.read')")
-	public String callMs2(@RegisteredOAuth2AuthorizedClient("ms1") OAuth2AuthorizedClient authorizedClient) {
+	public String callMs2(@Parameter(hidden = true) @RegisteredOAuth2AuthorizedClient("ms1") OAuth2AuthorizedClient authorizedClient) {
 		
 		HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(authorizedClient.getAccessToken().getTokenValue());

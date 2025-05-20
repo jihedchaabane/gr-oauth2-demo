@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chj.gr.clients.FeignGatewayProtectedClient;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 public class ConsumerFeignProtectedController {
 
@@ -19,9 +23,9 @@ public class ConsumerFeignProtectedController {
 		this.feignGatewayProtectedClient = feignGatewayProtectedClient;
 	}
 
-	
+	@Operation(summary = "Call MS1 to access MS2", security = @SecurityRequirement(name = "oauth2"))
 	@GetMapping("/call-ms1-protected")
-	public String callMs1Protected(@RegisteredOAuth2AuthorizedClient("feign") OAuth2AuthorizedClient authorizedClient) {
+	public String callMs1Protected(@Parameter(hidden = true) @RegisteredOAuth2AuthorizedClient("feign") OAuth2AuthorizedClient authorizedClient) {
 		/** 
 		 ==> Pour que ça soit exécuté une seule fois: Voir : FeignStartupConfig.java et FeignOAuth2Config.java.
 		 
@@ -40,8 +44,9 @@ public class ConsumerFeignProtectedController {
 		return "GR-RESOURCE-CONSUMER-FEIGN ==> GR-API-GATEWAY ==> " + responseJson;
 	}
 
+	@Operation(summary = "Call MS2", security = @SecurityRequirement(name = "oauth2"))
 	@GetMapping("/call-ms2-protected")
-	public String callMs2Protected(@RegisteredOAuth2AuthorizedClient("feign") OAuth2AuthorizedClient authorizedClient) {
+	public String callMs2Protected(@Parameter(hidden = true) @RegisteredOAuth2AuthorizedClient("feign") OAuth2AuthorizedClient authorizedClient) {
 	  /**
 		 ==> Pour que ça soit exécuté une seule fois: Voir : FeignStartupConfig.java et FeignOAuth2Config.java.
 		 
