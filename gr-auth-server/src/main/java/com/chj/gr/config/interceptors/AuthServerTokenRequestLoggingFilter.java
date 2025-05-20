@@ -9,42 +9,44 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE + 1) // Juste après le filtre de Spring Security
 public class AuthServerTokenRequestLoggingFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(AuthServerTokenRequestLoggingFilter.class);
-
+    
+	private void printParams(HttpServletRequest request) {
+		java.util.Enumeration<String> enu = request.getParameterNames();
+		while (enu.hasMoreElements()) {
+			String paramName = enu.nextElement();
+			logger.debug("PARAM: " + paramName + ": " + request.getParameter(paramName));
+		}
+	}
+    
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-    	logger.info("Reception d'une requête d'authorisation.");
-    	if (request.getRequestURI().endsWith("/oauth2/token")) {
-        	
-            String clientId 		= request.getParameter("client_id");
-            String clientSecret 	= request.getParameter("client_secret");
-            String scopes 			= request.getParameter("scope");
-            String grantType 		= request.getParameter("grant_type");
+    	logger.info("Reception d'une requête d'authorisation : {}", request.getRequestURI());
+    	if (request.getRequestURI().endsWith("/oauth2/token") || request.getRequestURI().endsWith("/oauth2/jwks")) {
+    		logger.info("Requête de token reçue, avec les parametres :");
+    		printParams(request);
 
-            logger.info("Requête de token reçue : clientId={}, clientSecret={}, grantType={}, scopes={}",
-                    clientId != null 		? clientId 		: "NON FOURNI",
-                    clientSecret != null 	? "********" 	: "NON FOURNI",
-                    scopes != null 			? scopes 		: "NON FOURNI",
-            		grantType != null 		? grantType 	: "NON FOURNI");
-
-            String authHeader = request.getHeader("Authorization");
+    		String authHeader = request.getHeader("Authorization");
             if (authHeader != null && authHeader.startsWith("Basic ")) {
-                logger.info("En-tête Authorization détecté pour la requête de token!");
+                logger.info("En-tête Authorization détecté pour la requête de token..");
             }
         }
-
+    	logger.info("Invocation du filtre : {}", filterChain.getClass().getCanonicalName());
         filterChain.doFilter(request, response);
+        logger.info("Response.Status : {}", response.getStatus());
         
-        if (request.getRequestURI().endsWith("/oauth2/token") && response.getStatus() == 200) {
-            logger.info("Token généré avec succès pour clientId={}, scopes={}",
-                    request.getParameter("client_id") != null 	? request.getParameter("client_id") : "NON FOURNI",
-                    request.getParameter("scope") != null 		? request.getParameter("scope") 	: "NON FOURNI");
+        if ((request.getRequestURI().endsWith("/oauth2/token") || request.getRequestURI().endsWith("/oauth2/jwks")) && response.getStatus() == 200) {
+            logger.info("Token généré avec succès.. {}", request.getRequestURI());
         }
+        logger.info("----------------------------------------------------------");
     }
 }

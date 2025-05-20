@@ -42,6 +42,7 @@ public class AuthServerSecurityConfig {
 	
 	public AuthServerSecurityConfig(CorsConfigurationSource corsConfigurationSource) {
 		this.corsConfigurationSource = corsConfigurationSource;
+		logger.info("AuthServerSecurityConfig initialisée");
 	}
 
 	@Bean
@@ -52,10 +53,6 @@ public class AuthServerSecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint((request, response, authException) -> {
-                        	logger.error("Échec de l'authentification pour clientId={}, scopes={}, erreur={}",
-                                  request.getParameter("client_id") != null ? request.getParameter("client_id") : "NON FOURNI",
-                                  request.getParameter("scope") != null 	? request.getParameter("scope") 	: "NON FOURNI",
-                                  authException.getMessage());
                             response.sendError(400, "Authentication error: " + authException.getMessage());
                         })
                 )

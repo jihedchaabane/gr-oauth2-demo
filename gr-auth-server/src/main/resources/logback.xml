@@ -23,7 +23,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.chj.gr" level="INFO"></logger>
+	<logger name="com.chj.gr" level="DEBUG"></logger>
 	<logger name="org.springframework.security" level="DEBUG"></logger>
 	
 	<root level="INFO">
