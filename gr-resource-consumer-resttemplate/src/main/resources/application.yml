@@ -1,17 +1,17 @@
 server:
-  port: 1202
+  port: 1203
 
 spring:
   application:
-    name: gr-resource-consumer
+    name: gr-resource-consumer-resttemplate
 
   security:
     oauth2:
       client:
         registration:
           consumer-resttemplate:
-            client-id: gr-resource-consumer
-            client-secret: consumer
+            client-id: gr-resource-consumer-resttemplate
+            client-secret: consumer-resttemplate
             scope: ms1.read,ms2.read
             authorization-grant-type: client_credentials
             provider: gr-auth-server

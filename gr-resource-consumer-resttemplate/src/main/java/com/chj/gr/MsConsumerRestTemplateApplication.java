@@ -6,8 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class MsConsumerApplication {
+public class MsConsumerRestTemplateApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MsConsumerApplication.class, args);
+        SpringApplication.run(MsConsumerRestTemplateApplication.class, args);
     }
 }

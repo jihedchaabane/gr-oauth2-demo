@@ -4,9 +4,9 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>gr-resource-consumer</artifactId>
+	<artifactId>gr-resource-consumer-resttemplate</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gr-resource-consumer</name>
+	<name>gr-resource-consumer-resttemplate</name>
 	
 	<parent>
 		<groupId>com.chj.gr</groupId>

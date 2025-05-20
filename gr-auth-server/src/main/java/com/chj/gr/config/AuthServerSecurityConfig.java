@@ -131,8 +131,8 @@ public class AuthServerSecurityConfig {
         		ms2Client.getAuthorizationGrantTypes());
         
         RegisteredClient ms3Client = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("gr-resource-consumer")
-                .clientSecret("{noop}consumer")
+                .clientId("gr-resource-consumer-resttemplate")
+                .clientSecret("{noop}consumer-resttemplate")
                 .scope("ms1.read")
                 .scope("ms2.read")
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
