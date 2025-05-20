@@ -1,0 +1,39 @@
+server:
+  port: 1205
+
+spring:
+  application:
+    name: gr-resource-consumer-feign
+
+  security:
+    oauth2:
+      client:
+        registration:
+          feign:
+            client-id: gr-resource-consumer-feign
+            client-secret: consumer-feign
+            scope: ms1.read,ms2.read
+            authorization-grant-type: client_credentials
+            provider: gr-auth-server
+        provider:
+          gr-auth-server:
+            token-uri: http://localhost:8764/oauth2/token
+feign:
+  client:
+    config:
+      gr-resource-consumer-feign-protected:
+        loggerLevel: full
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+    web.base-path: /actuator
+    web.enable.include: health
+  endpoint:
+    health:
+      show-details: ALWAYS
