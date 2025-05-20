@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-public class ConsumerProtectedController {
+public class ConsumerRestTemplateProtectedController {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -30,7 +30,7 @@ public class ConsumerProtectedController {
                 entity,
                 String.class
         );
-        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY ==> " + response.getBody();
+        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> GR-API-GATEWAY ==> " + response.getBody();
     }
     
     @GetMapping("/call-ms2-protected")
@@ -46,6 +46,6 @@ public class ConsumerProtectedController {
                 entity,
                 String.class
         );
-        return "GR-RESOURCE-CONSUMER ==> GR-API-GATEWAY ==> " + response.getBody();
+        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> GR-API-GATEWAY ==> " + response.getBody();
     }
 }

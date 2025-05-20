@@ -11,9 +11,9 @@
 
 
 	<appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${DEV_HOME}/gr-resource-consumer/gr-resource-consumer.log</file>
+		<file>${DEV_HOME}/gr-resource-consumer-resttemplate/gr-resource-consumer-resttemplate.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${DEV_HOME}/archived/gr-resource-consumer/gr-resource-consumer.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<fileNamePattern>${DEV_HOME}/archived/gr-resource-consumer-resttemplate/gr-resource-consumer-resttemplate.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>100MB</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
