@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/gr-ms1-resource/public")
 public class Resource1PublicController {
@@ -13,6 +15,7 @@ public class Resource1PublicController {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Operation(summary = "Call MS2 public endpoint")
 	@GetMapping("/ms2")
 	public String callMs2() {
 		
