@@ -113,7 +113,7 @@ springdoc:
 ###################################################################
 caller:
   destination:
-    # gr-resource-consumer-feign from swagger.
+    # gr-resource-consumer-webclient from swagger.
     client0:
       resourceUri:
       clientId:
