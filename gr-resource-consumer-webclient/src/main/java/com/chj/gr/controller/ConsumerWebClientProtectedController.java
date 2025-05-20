@@ -52,7 +52,7 @@ public class ConsumerWebClientProtectedController {
     	 */
 //    	String responseJson =  this.webClient
 //    			.get()
-//                .uri("http://localhost:7766/ms2/gr-ms2-resource/protected/get")
+//                .uri("http://GR-API-GATEWAY/ms2/gr-ms2-resource/protected/get")
 //                .header("Authorization", "Bearer " + authorizedClient.getAccessToken().getTokenValue())
 //                .retrieve()
 //                .bodyToMono(String.class)
