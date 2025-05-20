@@ -21,7 +21,11 @@ spring:
 feign:
   client:
     config:
+      ## --> Debug Feign token requests.
       gr-resource-consumer-feign-protected:
+        loggerLevel: full
+      ## --> Debug Feign token requests.
+      gr-resource-consumer-feign-public:
         loggerLevel: full
 
 eureka:
