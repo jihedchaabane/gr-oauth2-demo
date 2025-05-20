@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import feign.RequestInterceptor;
 
 @Configuration
-public class FeignConfig {
+public class FeignRequestInterceptorConfig {
 
     @Bean
     public RequestInterceptor oauth2FeignRequestInterceptor(OAuth2AuthorizedClientService clientService) {

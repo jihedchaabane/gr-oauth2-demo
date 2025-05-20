@@ -21,7 +21,7 @@ spring:
 feign:
   client:
     config:
-      gr-resource-consumer-feign:
+      gr-resource-consumer-feign-protected:
         loggerLevel: full
 
 eureka:
