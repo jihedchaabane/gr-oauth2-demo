@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: gr-resource-consumer-resttemplate
+  cloud:
+    discovery:
+      enabled: true
 
   security:
     oauth2:
@@ -18,7 +21,7 @@ spring:
         provider:
           gr-auth-server:
             token-uri: http://localhost:8764/oauth2/token
-
+######################################################
 eureka:
   client:
     enabled: true
@@ -47,7 +50,6 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-
 
 ##----> START : uri de gr-conf-swagger-aggregator
 swagger-params:

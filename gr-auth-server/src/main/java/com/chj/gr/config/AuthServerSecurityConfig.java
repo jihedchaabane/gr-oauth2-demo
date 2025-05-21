@@ -126,7 +126,31 @@ public class AuthServerSecurityConfig {
         		ms2Client.getClientId(),
         		ms2Client.getScopes(),
         		ms2Client.getAuthorizationGrantTypes());
-        
+        /**
+         * 
+         */
+        RegisteredClient ms3Client = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("gr-ms3-resource")
+                .clientSecret("{noop}ms3-resource")
+                .scope("ms2.read")
+                .scope("actuator.read")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .tokenSettings(
+                		/**
+                		 * Expiration de 1 jour.
+                		 */
+                		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
+                )
+                .build();
+        logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
+        		ms3Client.getClientId(),
+        		ms3Client.getScopes(),
+        		ms3Client.getAuthorizationGrantTypes());
+        /**
+         * 
+         */
         RegisteredClient restTemplateClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-resource-consumer-resttemplate")
                 .clientSecret("{noop}consumer-resttemplate")
@@ -186,26 +210,6 @@ public class AuthServerSecurityConfig {
         		feignClient.getClientId(),
         		feignClient.getScopes(),
         		feignClient.getAuthorizationGrantTypes());
-        
-        RegisteredClient ms3Client = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("gr-ms3-resource")
-                .clientSecret("{noop}ms3-resource")
-                .scope("ms2.read")
-                .scope("actuator.read")
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
-                .tokenSettings(
-                		/**
-                		 * Expiration de 1 jour.
-                		 */
-                		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
-                )
-                .build();
-        logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
-        		ms3Client.getClientId(),
-        		ms3Client.getScopes(),
-        		ms3Client.getAuthorizationGrantTypes());
         
         return new InMemoryRegisteredClientRepository(
         		ms1Client, 

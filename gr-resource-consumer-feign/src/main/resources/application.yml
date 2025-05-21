@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: gr-resource-consumer-feign
+  cloud:
+    discovery:
+      enabled: true
 
   security:
     oauth2:
