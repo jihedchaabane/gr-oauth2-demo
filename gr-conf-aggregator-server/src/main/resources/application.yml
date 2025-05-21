@@ -1,18 +1,12 @@
 server:
-  port: 1202
+  port: 8765
 
 spring:
   application:
-    name: gr-ms2-resource
+    name: gr-conf-aggregator-server
   cloud:
     discovery:
       enabled: true
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8764
 ########################################################
 eureka:
   client:
@@ -36,13 +30,14 @@ eureka:
 
 management:
   endpoints:
+    #----> To expose all management endpoints
     web.exposure.include: "*"
+    #----> To expose defined endpoints
+    #----> web.exposure.include: health, caches, env, info, logfile, httptrace, metrics
     web.base-path: /actuator
-    web.enable.include: health
   endpoint:
     health:
       show-details: ALWAYS
-
 
 ##----> START : uri de gr-conf-swagger-aggregator
 swagger-params:
@@ -61,8 +56,7 @@ swagger-params:
     enabled: ${aggregator.eureka.enabled:false}
     cors:
       uri: ${params.swaggerAggregator.uri}
-
-###################################################################
+######################################################
 #local
 host.where.docker.ip: localhost
 
@@ -91,30 +85,30 @@ params:
   truststore:
     path: C:/E/TOOLS/ms1-truststore.jks
     password: jihed1234
-###################################################################
+######################################################
 springdoc:
-  api-docs:
-    path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
-    operations-sorter: method
-    tags-sorter: alpha
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
     # Activer le mode "try it out" pour tous les endpoints
     try-it-out-enabled: true
-    oauth:
-      clientId: gr-ms2-resource
-      clientSecret: secret2
-  show-actuator: false # activer sinon pour voir les endpoints actuator dans le swagger.
-###################################################################
+  extraScripts:
+    - /static/custom-swagger.js
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+######################################################
 caller:
   destination:
-    # gr-ms2-resource from swagger.
+    # gr-conf-swagger-aggregator from swagger.
     client0:
       resourceUri:
-      clientId: gr-ms2-resource
-      clientSecret: secret2
-      scopes: ms2.read
-      registrationId: gr-ms2-resource
+      clientId:
+      clientSecret:
+      scopes:
+      registrationId:
 
-## uri/enabled de gr-conf-swagger-aggregator
+eureka.fetch.seconds: 120
 aggregator.eureka.enabled: true

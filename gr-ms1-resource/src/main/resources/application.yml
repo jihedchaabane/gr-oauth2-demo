@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: gr-ms1-resource
+  cloud:
+    discovery:
+      enabled: true
 
   security:
     oauth2:
@@ -21,7 +24,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8764
-
+########################################################
 eureka:
   client:
     enabled: true
