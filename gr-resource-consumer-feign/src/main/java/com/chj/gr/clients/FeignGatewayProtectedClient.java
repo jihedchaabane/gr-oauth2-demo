@@ -13,5 +13,8 @@ public interface FeignGatewayProtectedClient {
     
     @GetMapping("/ms2/gr-ms2-resource/protected/get")
     String callMs2Protected();
+    
+    @GetMapping("/ms3/gr-ms3-resource/protected/get")
+    String callMs3Protected();
 
 }

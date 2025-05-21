@@ -14,4 +14,7 @@ public interface FeignGatewayPublicClient {
     
     @GetMapping("/ms2/gr-ms2-resource/public/get")
     String callMs2Public();
+    
+    @GetMapping("/ms3/gr-ms3-resource/public/get")
+    String callMs3Public();
 }
