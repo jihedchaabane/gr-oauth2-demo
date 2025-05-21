@@ -7,6 +7,8 @@ http://localhost:7766/							==> GR-API-GATEWAY
 
 http://localhost:1201/swagger-ui/index.html		==> GR-MS1-RESOURCE
 http://localhost:1202/swagger-ui/index.html		==> GR-MS2-RESOURCE
-http://localhost:1203/swagger-ui/index.html		==> GR-RESOURCE-CONSUMER-RESTTEMPLATE
-http://localhost:1204/swagger-ui/index.html		==> GR-RESOURCE-CONSUMER-WEBCLIENT
-http://localhost:1205/swagger-ui/index.html		==> GR-RESOURCE-CONSUMER-FEIGN
+http://localhost:1203/swagger-ui/index.html		==> GR-MS3-RESOURCE
+
+http://localhost:1204/swagger-ui/index.html		==> GR-RESOURCE-CONSUMER-RESTTEMPLATE
+http://localhost:1205/swagger-ui/index.html		==> GR-RESOURCE-CONSUMER-WEBCLIENT
+http://localhost:1206/swagger-ui/index.html		==> GR-RESOURCE-CONSUMER-FEIGN

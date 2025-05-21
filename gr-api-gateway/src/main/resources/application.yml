@@ -16,12 +16,19 @@ spring:
             - Path=/ms1/**
           filters:
             - StripPrefix=1
-        - id: gr-ms1-resource
+        - id: gr-ms2-resource
           uri: lb://GR-MS2-RESOURCE
           predicates:
             - Path=/ms2/**
           filters:
             - StripPrefix=1
+        - id: gr-ms3-resource
+          uri: lb://GR-MS3-RESOURCE
+          predicates:
+            - Path=/ms3/**
+          filters:
+            - StripPrefix=1
+
   security:
     oauth2:
       resourceserver:

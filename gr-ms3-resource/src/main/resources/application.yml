@@ -1,32 +1,17 @@
 server:
-  port: 1206
+  port: 1203
 
 spring:
   application:
-    name: gr-resource-consumer-feign
-
+    name: gr-ms3-resource
+  cloud:
+    discovery:
+      enabled: true
   security:
     oauth2:
-      client:
-        registration:
-          feign:
-            client-id: gr-resource-consumer-feign
-            client-secret: consumer-feign
-            scope: ms1.read,ms2.read
-            authorization-grant-type: client_credentials
-            provider: gr-auth-server
-        provider:
-          gr-auth-server:
-            token-uri: http://localhost:8764/oauth2/token
-feign:
-  client:
-    config:
-      ## --> Debug Feign token requests.
-      gr-resource-consumer-feign-protected:
-        loggerLevel: full
-      ## --> Debug Feign token requests.
-      gr-resource-consumer-feign-public:
-        loggerLevel: full
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8764
 
 eureka:
   client:
@@ -47,15 +32,16 @@ eureka:
       #----> Indique que ce microservice doit être inclus dans le swagger de 'gr-conf-swagger-aggregator'
       #----> (désactivé par défaut sinon).
       swagger.aggregator.enabled: ${aggregator.eureka.enabled:false}
+      management.context-path: /actuator
 
 management:
   endpoints:
     web.exposure.include: "*"
     web.base-path: /actuator
-    web.enable.include: health
   endpoint:
     health:
       show-details: ALWAYS
+
 
 ##----> START : uri de gr-conf-swagger-aggregator
 swagger-params:
@@ -115,19 +101,19 @@ springdoc:
     # Activer le mode "try it out" pour tous les endpoints
     try-it-out-enabled: true
     oauth:
-      clientId: gr-resource-consumer-feign
-      clientSecret: consumer-feign
+      clientId: gr-ms3-resource
+      clientSecret: ms3-resource
   show-actuator: false # activer sinon pour voir les endpoints actuator dans le swagger.
 ###################################################################
 caller:
   destination:
-    # gr-resource-consumer-feign from swagger.
+    # gr-ms2-resource from swagger.
     client0:
       resourceUri:
-      clientId:
-      clientSecret:
-      scopes:
-      registrationId:
+      clientId: gr-ms3-resource
+      clientSecret: ms3-resource
+      scopes: ms2.read,actuator.read
+      registrationId: gr-ms3-resource
 
 ## uri/enabled de gr-conf-swagger-aggregator
 aggregator.eureka.enabled: true

@@ -7,10 +7,20 @@ spring:
   cloud:
     discovery:
       enabled: true		
-  security: # TODO : Configure SBA to use gr-auth-server for single sign-on.
-    user:
-      name: admin
-      password: admin
+  security:
+    oauth2:
+      client:
+        registration:
+          feign:
+            client-id: gr-ms3-resource
+            client-secret: ms3-resource
+            scope: actuator.read
+            authorization-grant-type: client_credentials
+            client-authentication-method: client_secret_basic
+            provider: gr-auth-server
+        provider:
+          gr-auth-server:
+            token-uri: http://localhost:8764/oauth2/token
 #############################################################
 # java -jar fakesmtp-2.0.jar -p 2525
 # https://threadminions.wordpress.com/2019/06/25/alert-with-spring-boot-admin-server/
@@ -76,7 +86,6 @@ management:
     #----> To expose defined endpoints
     #----> web.exposure.include: health, caches, env, info, logfile, httptrace, metrics
     web.base-path: /actuator
-    web.enable.include: health
   endpoint:
     health:
       show-details: ALWAYS

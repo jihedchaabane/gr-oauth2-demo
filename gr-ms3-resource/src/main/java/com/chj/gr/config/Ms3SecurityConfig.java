@@ -10,18 +10,22 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MsCommonConsumerSecurityConfig {
+public class Ms3SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-    		.antMatchers("/call-ms1-public").permitAll()
-    		.antMatchers("/call-ms2-public").permitAll()
-    		.antMatchers("/call-ms3-public").permitAll()
+            .antMatchers("/gr-ms3-resource/public/**").permitAll()
             
-            .antMatchers("/actuator/**").permitAll()
-            .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
+//            .antMatchers("/actuator/**").permitAll()
+            .antMatchers("/actuator/**").hasAuthority("SCOPE_actuator.read")
+            
+            .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .oauth2ResourceServer()
+            .jwt();
         return http.build();
     }
 }
