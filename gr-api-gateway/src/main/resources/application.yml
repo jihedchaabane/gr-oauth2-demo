@@ -1,9 +1,12 @@
 server:
   port: 7766
+
 spring:
   application:
     name: gr-api-gateway
   cloud:
+    discovery:
+      enabled: true
     gateway:
       discovery:
         locator:
@@ -34,10 +37,26 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8764
+########################################################
 eureka:
   client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    registry-fetch-interval-seconds: ${eureka.fetch.seconds:25}
     service-url:
       defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    #----> Remove ipAddress and hostname to let Eureka resolve dynamically
+    #ipAddress: ${host.where.docker.ip}
+    #----> Optionally, set a non-qualified hostname if needed
+    #hostname: ${spring.application.name}
+    instance-id: ${spring.application.name}:${random.int}
+    metadata-map:
+      #----> Indique que ce microservice doit être inclus dans le swagger de 'gr-conf-swagger-aggregator'
+      #----> (désactivé par défaut sinon).
+      swagger.aggregator.enabled: ${aggregator.eureka.enabled:false}
 
 management:
   endpoints:
@@ -47,3 +66,6 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+
+## uri/enabled de gr-conf-swagger-aggregator
+aggregator.eureka.enabled: false
