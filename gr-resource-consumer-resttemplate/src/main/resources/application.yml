@@ -71,8 +71,6 @@ swagger-params:
 
 ###################################################################
 #local
-host.where.docker.ip: localhost
-
 params:
   eureka:
     uri: http://localhost:8761/eureka/
