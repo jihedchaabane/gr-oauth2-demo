@@ -38,12 +38,13 @@
     <module>gr-auth-server</module>
     <module>gr-api-gateway</module>
     <module>gr-sbadmin-server</module>
+    <module>gr-conf-aggregator-server</module>
+    
     <module>gr-ms1-resource</module>
     <module>gr-ms2-resource</module>
     <module>gr-ms3-resource</module>
     <module>gr-resource-consumer-resttemplate</module>
     <module>gr-resource-consumer-webclient</module>
     <module>gr-resource-consumer-feign</module>
-    <module>gr-conf-aggregator-server</module>
   </modules>
 </project>
