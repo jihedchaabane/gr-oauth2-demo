@@ -82,14 +82,14 @@ params:
     issuerUri: http://localhost:8764
     #----> for SPRINGBOOT-OAUTH2-EXTERNAL-RESTTEMPLATE-CONSUMER until: 
     #----> @TODO try to replace it with eureka discovery alternative.
-    #----> .issuer("http://SPRINGBOOT-CONF-STS-AUTHORIZATION-SERVER-DB")
-    loadBalancedIssuerUri: http://SPRINGBOOT-CONF-STS-AUTHORIZATION-SERVER-DB
+    #----> .issuer("http://GR-AUTH-SERVER")
+    loadBalancedIssuerUri: http://GR-AUTH-SERVER
   gateway:
     uri: http://localhost:8766
   gatewayOauth2:
-    uri: http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2
+    uri: http://GR-API-GATEWAY
   swaggerAggregator:
-    uri: http://localhost:8765  # Didnot work : localhost, 192.168.56.1, GR-OAUTH2-SWAGGER-AGGREGATOR, GR-CONF-SWAGGER-AGGREGATOR
+    uri: http://localhost:8765
   zipkin:
     uri: http://localhost:9411
   keystore:
