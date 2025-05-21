@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
-public class ConsumerRestTemplateMS3ProtectedController {
+public class ConsumerRestTemplateMS3Controller {
 
     @Autowired
     private RestTemplate restTemplate;
@@ -36,5 +36,13 @@ public class ConsumerRestTemplateMS3ProtectedController {
                 String.class
         );
         return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> GR-API-GATEWAY ==> " + response.getBody();
+    }
+    
+    @Operation(summary = "Call GR-MS3-RESOURCE public endpoint")
+    @GetMapping("/call-ms3-public")
+    public String callMs3Public() {
+    	
+        String url = "http://GR-API-GATEWAY/ms3/gr-ms3-resource/public/get";
+        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> GR-API-GATEWAY ==> " + restTemplate.getForObject(url, String.class);
     }
 }
