@@ -1,6 +1,7 @@
 # gr-oauth2-demo
 
 http://localhost:8761/							==> GR-EUREKA-SERVER
+http://localhost:8763/							==> GR-SBADMIN-SERVER
 http://localhost:8764/							==> GR-AUTH-SERVER
 http://localhost:7766/							==> GR-API-GATEWAY
 

@@ -16,6 +16,8 @@ public class ApiGatewaySecurityConfig {
             .authorizeExchange()
             .pathMatchers("/ms1/gr-ms1-resource/public/**").permitAll()
             .pathMatchers("/ms2/gr-ms2-resource/public/**").permitAll()
+            
+            .pathMatchers("/actuator/**").permitAll()
             .anyExchange().authenticated()
             .and()
             .oauth2ResourceServer()
