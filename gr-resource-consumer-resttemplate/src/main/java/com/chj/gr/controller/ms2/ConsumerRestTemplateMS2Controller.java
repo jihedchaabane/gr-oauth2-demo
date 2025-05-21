@@ -1,6 +1,7 @@
 package com.chj.gr.controller.ms2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,6 +20,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 public class ConsumerRestTemplateMS2Controller {
 
     @Autowired
+    @Qualifier("restTemplate")
     private RestTemplate restTemplate;
 
     @Operation(summary = "Call GR-MS2-RESOURCE", security = @SecurityRequirement(name = "oauth2"))

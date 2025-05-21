@@ -1,6 +1,7 @@
 package com.chj.gr.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,6 +23,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 public class Resource1ProtectedController {
 
 	@Autowired
+	@Qualifier("restTemplate")
 	private RestTemplate restTemplate;
 
 	@Operation(summary = "Call MS2 protected endpoint", security = @SecurityRequirement(name = "oauth2"))
