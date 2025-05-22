@@ -35,7 +35,7 @@ public class OpenAPIConfig {
 	private CallerDestinationProperties callerDestinationProperties;
 
 	public OpenAPIConfig(BuildProperties buildProperties, CallerDestinationProperties callerDestinationProperties, SwaggerParamsProperties swaggerParamsProperties) {
-		this.swaggerParamsProperties = swaggerParamsProperties;
+		this.buildProperties = buildProperties;
 		this.callerDestinationProperties = callerDestinationProperties;
 		this.swaggerParamsProperties = swaggerParamsProperties;
 	}
