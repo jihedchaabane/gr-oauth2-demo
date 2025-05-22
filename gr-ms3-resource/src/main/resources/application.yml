@@ -38,9 +38,14 @@ management:
   endpoints:
     web.exposure.include: "*"
     web.base-path: /actuator
+    web.enable.include: health
   endpoint:
     health:
       show-details: ALWAYS
+  # --> Include git.properties generated informations (plugin:git-commit-id-plugin) in /actuator/info endpoint.
+  info:
+    git:
+      mode: full
 
 
 ##----> START : uri de gr-conf-swagger-aggregator
@@ -100,7 +105,7 @@ springdoc:
     try-it-out-enabled: true
     oauth:
       clientId: gr-ms3-resource
-      clientSecret: ms3-resource
+      clientSecret: secret3
   show-actuator: false # activer sinon pour voir les endpoints actuator dans le swagger.
 ###################################################################
 caller:
@@ -109,8 +114,8 @@ caller:
     client0:
       resourceUri:
       clientId: gr-ms3-resource
-      clientSecret: ms3-resource
-      scopes: ms2.read,actuator.read
+      clientSecret: secret3
+      scopes: ms3.read,actuator.read
       registrationId: gr-ms3-resource
 
 ## uri/enabled de gr-conf-swagger-aggregator

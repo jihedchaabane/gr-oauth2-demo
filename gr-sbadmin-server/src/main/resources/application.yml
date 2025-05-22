@@ -13,7 +13,7 @@ spring:
         registration:
           ms3:
             client-id: gr-ms3-resource
-            client-secret: ms3-resource
+            client-secret: secret3
             scope: actuator.read
             authorization-grant-type: client_credentials
             client-authentication-method: client_secret_basic
@@ -78,6 +78,7 @@ eureka:
       #----> Indique que ce microservice doit être inclus dans le swagger de 'gr-conf-swagger-aggregator'
       #----> (désactivé par défaut sinon).
       swagger.aggregator.enabled: ${aggregator.eureka.enabled:false}
+      management.context-path: /actuator
 
 management:
   endpoints:
@@ -86,9 +87,14 @@ management:
     #----> To expose defined endpoints
     #----> web.exposure.include: health, caches, env, info, logfile, httptrace, metrics
     web.base-path: /actuator
+    web.enable.include: health
   endpoint:
     health:
       show-details: ALWAYS
+  # --> Include git.properties generated informations (plugin:git-commit-id-plugin) in /actuator/info endpoint.
+  info:
+    git:
+      mode: full
 
 ##----> START : uri de gr-conf-swagger-aggregator
 swagger-params:
@@ -142,3 +148,4 @@ logging:
   level:
     de.codecentric.boot.admin: DEBUG
     com.netflix.discovery: DEBUG
+    org.springframework.security: DEBUG
