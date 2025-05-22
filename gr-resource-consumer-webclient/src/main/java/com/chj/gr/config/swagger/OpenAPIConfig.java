@@ -3,7 +3,7 @@ package com.chj.gr.config.swagger;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,13 +30,12 @@ import io.swagger.v3.oas.models.servers.Server;
 @Configuration
 public class OpenAPIConfig {
 
-	@Value("${spring.application.name}")
-	private String artifact;
-	
+	private BuildProperties buildProperties;
 	private SwaggerParamsProperties swaggerParamsProperties;
 	private CallerDestinationProperties callerDestinationProperties;
 
-	public OpenAPIConfig(CallerDestinationProperties callerDestinationProperties, SwaggerParamsProperties swaggerParamsProperties) {
+	public OpenAPIConfig(BuildProperties buildProperties, CallerDestinationProperties callerDestinationProperties, SwaggerParamsProperties swaggerParamsProperties) {
+		this.swaggerParamsProperties = swaggerParamsProperties;
 		this.callerDestinationProperties = callerDestinationProperties;
 		this.swaggerParamsProperties = swaggerParamsProperties;
 	}
@@ -62,9 +61,9 @@ public class OpenAPIConfig {
 
 		Info info = new Info()
 				.title("Swagger Management API")
-				.version("0.0.1-SNAPSHOT")
+				.version(buildProperties.getVersion())
 				.contact(contact)
-				.description("This API exposes endpoints to manage " + artifact.toUpperCase() + ".")
+				.description("This API exposes endpoints to manage " + buildProperties.getName().toUpperCase() + ".")
 				.termsOfService("https://www.jihed.com")
 				.license(mitLicense);
 		
