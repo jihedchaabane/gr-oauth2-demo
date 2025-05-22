@@ -1,50 +1,108 @@
-<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.chj.gr</groupId>
-  <artifactId>gr-oauth2-demo</artifactId>
-  <packaging>pom</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>gr-oauth2-demo</name>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.18</version>
-    <relativePath/>
-  </parent>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>11</java.version>
-    <spring-cloud.version>2021.0.8</spring-cloud.version>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-    <!-- CAFFEINE -->
-    <dependency>
-      <groupId>com.github.ben-manes.caffeine</groupId>
-      <artifactId>caffeine</artifactId>
-      <version>3.1.8</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-cache</artifactId>
-    </dependency>
-  </dependencies>
-  <modules>
-    <module>gr-eureka-server</module>
-    <module>gr-auth-server</module>
-    <module>gr-api-gateway</module>
-    <module>gr-sbadmin-server</module>
-    <module>gr-conf-aggregator-server</module>
-    
-    <module>gr-ms1-resource</module>
-    <module>gr-ms2-resource</module>
-    <module>gr-ms3-resource</module>
-    <module>gr-resource-consumer-resttemplate</module>
-    <module>gr-resource-consumer-webclient</module>
-    <module>gr-resource-consumer-feign</module>
-  </modules>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.chj.gr</groupId>
+	<artifactId>gr-oauth2-demo</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>gr-oauth2-demo</name>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.18</version>
+		<relativePath />
+	</parent>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>11</java.version>
+		<spring-cloud.version>2021.0.8</spring-cloud.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- CAFFEINE -->
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>3.1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>4.9.10</version>
+				<executions>
+					<execution>
+						<id>get-the-git-infos</id>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+						<phase>initialize</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+					<commitIdGenerationMode>full</commitIdGenerationMode>
+<!--
+					<format>json</format>
+					<failOnNoGitDirectory>false</failOnNoGitDirectory>   			==> omit errors if Git repository has not been found
+					<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>		==> If you want to specify custom .git repository location
+					<prefix>git</prefix>											==> If you want to specify a custom property prefix
+					<verbose>false</verbose>										==> For more generous logging
+
+					<runOnlyOnce>true</runOnlyOnce>									==> When working with project with submodules, setting this flag makes sure that plugin works only for parent repository
+					<excludeProperties>
+					    <excludeProperty>git.user.*</excludeProperty>
+					</excludeProperties>
+					<gitDescribe>
+			            <skip>false</skip>
+			            <always>false</always>
+			            <dirty>-dirty</dirty>
+			        </gitDescribe>
+-->
+					<includeOnlyProperties>
+						<includeOnlyProperty>git.branch</includeOnlyProperty>
+						<includeOnlyProperty>git.build.user.email</includeOnlyProperty>
+						<includeOnlyProperty>git.build.version</includeOnlyProperty>
+						<includeOnlyProperty>git.build.time</includeOnlyProperty>
+						<includeOnlyProperty>git.commit.id.full</includeOnlyProperty>
+						<includeOnlyProperty>git.commit.user.email</includeOnlyProperty>
+						<includeOnlyProperty>git.commit.message.full</includeOnlyProperty>
+						<includeOnlyProperty>git.commit.time</includeOnlyProperty>
+						<includeOnlyProperty>git.dirty</includeOnlyProperty>
+					</includeOnlyProperties>
+				</configuration>
+			</plugin>
+		</plugins>
+  	</build>
+
+	<modules>
+		<module>gr-eureka-server</module>
+		<module>gr-auth-server</module>
+		<module>gr-api-gateway</module>
+		<module>gr-sbadmin-server</module>
+		<module>gr-conf-aggregator-server</module>
+
+		<module>gr-ms1-resource</module>
+		<module>gr-ms2-resource</module>
+		<module>gr-ms3-resource</module>
+		<module>gr-resource-consumer-resttemplate</module>
+		<module>gr-resource-consumer-webclient</module>
+		<module>gr-resource-consumer-feign</module>
+	</modules>
 </project>

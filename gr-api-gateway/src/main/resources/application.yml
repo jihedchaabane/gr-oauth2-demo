@@ -67,6 +67,10 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+  # --> Include git.properties generated informations (plugin:git-commit-id-plugin) in /actuator/info endpoint.
+  info:
+    git:
+      mode: full
 
 ## uri/enabled de gr-conf-swagger-aggregator
 aggregator.eureka.enabled: false

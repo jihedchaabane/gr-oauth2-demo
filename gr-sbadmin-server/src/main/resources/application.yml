@@ -87,9 +87,14 @@ management:
     #----> To expose defined endpoints
     #----> web.exposure.include: health, caches, env, info, logfile, httptrace, metrics
     web.base-path: /actuator
+    web.enable.include: health
   endpoint:
     health:
       show-details: ALWAYS
+  # --> Include git.properties generated informations (plugin:git-commit-id-plugin) in /actuator/info endpoint.
+  info:
+    git:
+      mode: full
 
 ##----> START : uri de gr-conf-swagger-aggregator
 swagger-params:
