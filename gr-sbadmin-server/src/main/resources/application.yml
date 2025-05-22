@@ -142,3 +142,4 @@ logging:
   level:
     de.codecentric.boot.admin: DEBUG
     com.netflix.discovery: DEBUG
+    org.springframework.security: DEBUG
