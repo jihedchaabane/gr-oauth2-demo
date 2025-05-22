@@ -100,7 +100,7 @@ springdoc:
     try-it-out-enabled: true
     oauth:
       clientId: gr-ms3-resource
-      clientSecret: ms3-resource
+      clientSecret: secret3
   show-actuator: false # activer sinon pour voir les endpoints actuator dans le swagger.
 ###################################################################
 caller:
@@ -109,8 +109,8 @@ caller:
     client0:
       resourceUri:
       clientId: gr-ms3-resource
-      clientSecret: ms3-resource
-      scopes: ms2.read,actuator.read
+      clientSecret: secret3
+      scopes: ms3.read,actuator.read
       registrationId: gr-ms3-resource
 
 ## uri/enabled de gr-conf-swagger-aggregator

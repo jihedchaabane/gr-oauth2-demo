@@ -14,9 +14,9 @@ public class Resource3ProtectedController {
 
 	@Operation(summary = "GR-MS3-RESOURCE protected endpoint", security = @SecurityRequirement(name = "oauth2"))
     @GetMapping("/get")
-    @PreAuthorize("hasAuthority('SCOPE_ms2.read')")
+    @PreAuthorize("hasAuthority('SCOPE_ms3.read')")
     public String get() {
     	
-        return "GR-MS3-RESOURCE [SECURED:ms2.read] Hello from /protected/get endpoint";
+        return "GR-MS3-RESOURCE [SECURED:ms3.read] Hello from /protected/get endpoint";
     }
 }
