@@ -15,7 +15,7 @@ EXPOSE ${PORT}
 ############################ Définir la commande d'entrée avec le nom et la version du JAR
 #ENTRYPOINT ["java", "-jar", "${MODULE_NAME}-${JAR_VERSION}.jar"] ==> did not work : docker exec does not handle VARIABLE SUBSTITUTION.
 # OR use the shell form, which runs the command in a shell and supports VARIABLE SUBSTITUTION : without []:
-# ENTRYPOINT java -jar ${MODULE_NAME}-${JAR_VERSION}.jar
+ENTRYPOINT java -jar ${MODULE_NAME}-${JAR_VERSION}.jar
 
 # Use exec Form with Shell for VARIABLE SUBSTITUTION.
-ENTRYPOINT ["/bin/sh", "-c", "java -jar ${MODULE_NAME}-${JAR_VERSION}.jar"]
+#ENTRYPOINT ["/bin/sh", "-c", "java -jar ${MODULE_NAME}-${JAR_VERSION}.jar"]
