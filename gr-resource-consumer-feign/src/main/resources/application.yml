@@ -1,5 +1,4 @@
-server:
-  port: 1206
+server.port: 1206
 
 spring:
   application:

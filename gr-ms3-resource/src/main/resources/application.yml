@@ -1,5 +1,4 @@
-server:
-  port: 1203
+server.port: 1203
 
 spring:
   application:
