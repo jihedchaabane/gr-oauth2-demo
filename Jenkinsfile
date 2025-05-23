@@ -3,9 +3,9 @@ pipeline {
     tools {
         maven 'MAVEN'
     }
-    parameters {
-        string(name: 'MODULES', defaultValue: 'all', description: 'Comma-separated list of modules to build, or "all" for all modules')
-    }
+//    parameters {
+//        string(name: 'MODULES', defaultValue: 'all', description: 'Comma-separated list of modules to build, or "all" for all modules')
+//    }
     environment {
         DOCKER_REGISTRY = 'jihed123' // e.g., docker.io/yourusername
         DOCKER_CREDENTIALS_ID = 'docker-credentials'
@@ -34,7 +34,7 @@ pipeline {
                         'gr-resource-consumer-webclient',
                         'gr-resource-consumer-feign'
                     ]
-                    def selectedModules = params.MODULES == 'all' ? modules : params.MODULES.split(',').collect { it.trim() }
+                    def selectedModules = MODULES == 'all' ? modules : MODULES.split(',').collect { it.trim() }
                     
                     for (module in selectedModules) {
                         if (!modules.contains(module)) {
