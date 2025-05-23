@@ -1,0 +1,29 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: gr-eureka-server
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+    web.base-path: /actuator
+    web.enable.include: health
+  endpoint:
+    health:
+      show-details: ALWAYS
+  # --> Include git.properties generated informations (plugin:git-commit-id-plugin) in /actuator/info endpoint.
+  info:
+    git:
+      mode: full
+
+logging:
+  level:
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud: DEBUG
