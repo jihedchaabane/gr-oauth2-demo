@@ -69,6 +69,7 @@ pipeline {
                                 def version = sh(script: "grep 'build.version' 	${module}/target/classes/META-INF/build-info.properties | cut -d'=' -f2", returnStdout: true).trim()
                                 def imageName = "${DOCKER_REGISTRY}/${module}:${version}"
                                 sh """
+                                	echo "${imageName}"
 			                        if [ \$(docker images -q ${imageName}) ]; then
 			                            echo "Removing Old Existing Docker Image: ${imageName}"
 			                            docker rmi ${imageName} || true
@@ -87,6 +88,9 @@ pipeline {
                                 def port = sh(script: "grep 'server.port' ${module}/src/main/resources/application.yml | cut -d' ' -f2", returnStdout: true).trim()
                                 def jarFile = sh(script: "ls ${module}/target/*.jar", returnStdout: true).trim()
                                 sh """
+                                	echo "${version}"
+                                	echo "${port}"
+                                	echo "${jarFile}"
                                     docker build \
                                         --build-arg MODULE_NAME=${module} \
                                         --build-arg JAR_FILE=${jarFile} \
@@ -114,6 +118,8 @@ pipeline {
                                 def version = sh(script: "grep 'build.version' 	${module}/target/classes/META-INF/build-info.properties | cut -d'=' -f2", returnStdout: true).trim()
                                 def port = sh(script: "grep 'server.port' ${module}/src/main/resources/application.yml | cut -d' ' -f2", returnStdout: true).trim()
                                 sh """
+                                	echo "${version}"
+                                	echo "${port}"
 				                    docker run \
 				                    	-d --name container-${module} --network ${DOCKER_NETWORK} \
 									    -p ${port}:${port} \
