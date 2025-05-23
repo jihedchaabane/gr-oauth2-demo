@@ -44,7 +44,7 @@ params:
     password: jihed123
     alias: ms2
   truststore:
-    path: file:/certificates/ms1-truststore.jks
+    path: /certificates/ms1-truststore.jks
     password: jihed1234
 ###################################################################
 springdoc:
