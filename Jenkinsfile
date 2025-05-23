@@ -34,7 +34,7 @@ pipeline {
                         'gr-resource-consumer-webclient',
                         'gr-resource-consumer-feign'
                     ]
-                    def selectedModules = ${MODULES} == 'all' ? modules : ${MODULES}.split(',').collect { it.trim() }
+                    def selectedModules = MODULES == 'all' ? modules : MODULES.split(',').collect { it.trim() }
                     
                     for (module in selectedModules) {
                         if (!modules.contains(module)) {
