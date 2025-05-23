@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'MAVEN'
+    }
     parameters {
         string(name: 'MODULES', defaultValue: 'all', description: 'Comma-separated list of modules to build, or "all" for all modules')
     }
