@@ -127,18 +127,16 @@ pipeline {
                         
                         
                         stage('Wait 25 seconds') {
-				            steps {
-				                script {
-				                    sh """
-				                    	echo "Attendre que le conteneur démarre"
-				                        sleep 25 
-				                    """
-//				                    sh """
-//				                    echo "Vérifier que l'application répond"
-//				                        curl --fail http://localhost:${APP_PORT}/actuator/health || exit 1
-//				                    """
+			                script {
+			                    sh """
+			                    	echo "Attendre que le conteneur démarre"
+			                        sleep 25 
+			                    """
+//			                    sh """
+//			                    echo "Vérifier que l'application répond"
+//			                        curl --fail http://localhost:${APP_PORT}/actuator/health || exit 1
+//			                    """
 				                }
-				            }
 				        }
                         stage("Verify New Container is RUNNING: container-${module}") {
                             script {
