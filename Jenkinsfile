@@ -126,11 +126,11 @@ pipeline {
                         }
                         
                         
-                        stage('Wait 25 seconds') {
+                        stage('Wait 15 seconds') {
 			                script {
 			                    sh """
 			                    	echo "Attendre que le conteneur démarre"
-			                        sleep 20 
+			                        sleep 15 
 			                    """
 //			                    sh """
 //			                    echo "Vérifier que l'application répond"
