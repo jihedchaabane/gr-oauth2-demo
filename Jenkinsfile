@@ -9,6 +9,8 @@ pipeline {
     environment {
         DOCKER_REGISTRY = 'jihed123' // e.g., docker.io/yourusername
         DOCKER_CREDENTIALS_ID = 'docker-credentials'
+        
+        CONFIG_SERVER_ADDR = 'http://container-gr-conf-config-server:8762'
     }
     stages {
         stage('Checkout') {
@@ -63,7 +65,8 @@ pipeline {
                         
                         stage("Remove Old Docker Image If Exists: ${module}") {
                             script {
-                                def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+                                //def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+                                def version = sh(script: "grep 'build.version' 	${module}/target/classes/META-INF/build-info.properties | cut -d'=' -f2", returnStdout: true).trim()
                                 def imageName = "${DOCKER_REGISTRY}/${module}:${version}"
                                 sh """
 			                        if [ \$(docker images -q ${imageName}) ]; then
@@ -78,8 +81,9 @@ pipeline {
                         
                         stage("Build New Docker Image: ${module}") {
                             script {
-                                def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+                                //def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
                                 //def port = sh(script: "yq eval '.server.port' ${module}/src/main/resources/application.yml", returnStdout: true).trim()
+                                def version = sh(script: "grep 'build.version' 	${module}/target/classes/META-INF/build-info.properties | cut -d'=' -f2", returnStdout: true).trim()
                                 def port = sh(script: "grep 'server.port' ${module}/src/main/resources/application.yml | cut -d' ' -f2", returnStdout: true).trim()
                                 def jarFile = sh(script: "ls ${module}/target/*.jar", returnStdout: true).trim()
                                 sh """
@@ -95,7 +99,8 @@ pipeline {
                         
 //                        stage("Push New Docker Image: ${module}") {
 //                            script {
-//                                def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+//                                //def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+//							      def version = sh(script: "grep 'build.version' 	${module}/target/classes/META-INF/build-info.properties | cut -d'=' -f2", returnStdout: true).trim()
 //                                docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
 //                                    sh "docker push ${DOCKER_REGISTRY}/${module}:${version}"
 //                                }
@@ -104,14 +109,16 @@ pipeline {
                         
                         stage("Run New Docker Container: container-${module}") {
                             script {
-                                def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
+                                //def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
                                 //def port = sh(script: "yq eval '.server.port' ${module}/src/main/resources/application.yml", returnStdout: true).trim()
+                                def version = sh(script: "grep 'build.version' 	${module}/target/classes/META-INF/build-info.properties | cut -d'=' -f2", returnStdout: true).trim()
                                 def port = sh(script: "grep 'server.port' ${module}/src/main/resources/application.yml | cut -d' ' -f2", returnStdout: true).trim()
                                 sh """
 				                    docker run \
 				                    	-d --name container-${module} --network ${DOCKER_NETWORK} \
 									    -p ${port}:${port} \
 			                    	    -e SPRING_PROFILES_ACTIVE=${ACTIVE_PROFILE} \
+			                    	    -e CONFIG_SERVER_ADDR=${CONFIG_SERVER_ADDR} \
 				                       	-v /var/lib/jenkins/workspace/certificates:/certificates \
 									    ${DOCKER_REGISTRY}/${module}:${version}
 			 					"""
