@@ -2,33 +2,20 @@ FROM openjdk:21
 
 ############################ Définir des arguments pour le nom, la version et le port
 ARG MODULE_NAME
-# gr-eureka-server
 ARG JAR_FILE
-# gr-eureka-server/target/gr-eureka-server-0.0.1-SNAPSHOT.jar
 ARG JAR_VERSION
-# 0.0.1-SNAPSHOT
 ARG PORT
-# 8761
 
 ############################ Définir le répertoire de travail
 WORKDIR /var/lib/jenkins/workspace/jars
 ############################ # Copier le fichier JAR en utilisant les arguments
 COPY ${JAR_FILE} ${MODULE_NAME}-${JAR_VERSION}.jar
-# COPY gr-eureka-server/target/gr-eureka-server-0.0.1-SNAPSHOT.jar gr-eureka-server-0.0.1-SNAPSHOT.jar
-
 ############################ Exposer le port dynamique
 EXPOSE ${PORT}
-# EXPOSE ${8761}
-
 ############################ Définir la commande d'entrée avec le nom et la version du JAR
-#ENTRYPOINT ["java", "-jar", "${MODULE_NAME}-${JAR_VERSION}.jar"]
-ENTRYPOINT ["java", "-jar", "gr-eureka-server-0.0.1-SNAPSHOT.jar"]
+#ENTRYPOINT ["java", "-jar", "${MODULE_NAME}-${JAR_VERSION}.jar"] ==> did not work : docker exec does not handle VARIABLE SUBSTITUTION.
+# OR use the shell form, which runs the command in a shell and supports VARIABLE SUBSTITUTION : without []:
+# ENTRYPOINT java -jar ${MODULE_NAME}-${JAR_VERSION}.jar
 
-
-
-#FROM openjdk:21
-#WORKDIR /var/lib/jenkins/workspace/jars
-#ADD  target/gr-https-ssl-ms0-orchestrator-0.0.1-SNAPSHOT.jar gr-https-ssl-ms0-orchestrator.jar
-#COPY target/gr-https-ssl-ms0-orchestrator-0.0.1-SNAPSHOT.jar gr-https-ssl-ms0-orchestrator-0.0.1-SNAPSHOT.jar
-#EXPOSE 1000
-#ENTRYPOINT ["java", "-jar", "gr-https-ssl-ms0-orchestrator-0.0.1-SNAPSHOT.jar"]
+# Use exec Form with Shell for VARIABLE SUBSTITUTION.
+ENTRYPOINT ["/bin/sh", "-c", "java -jar ${MODULE_NAME}-${JAR_VERSION}.jar"]
