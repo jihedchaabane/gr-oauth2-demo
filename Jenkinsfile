@@ -37,7 +37,7 @@ pipeline {
                         }
                         
                         stage("Build Module: ${module}") {
-                            sh "mvn clean package -DskipTests -pl ${module} -am"
+                            sh "mvn clean package -pl ${module} -am"
                         }
                         
 //                        stage("SonarQube Analysis: ${module}") {
@@ -76,7 +76,8 @@ pipeline {
                         stage("Build New Docker Image: ${module}") {
                             script {
                                 def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
-                                def port = sh(script: "yq eval '.server.port' ${module}/src/main/resources/application-${ACTIVE_PROFILE}.yml", returnStdout: true).trim()
+                                //def port = sh(script: "yq eval '.server.port' ${module}/src/main/resources/application.yml", returnStdout: true).trim()
+                                def port = sh(script: "grep 'server.port' ${module}/src/main/resources/application.yml | cut -d' ' -f2", returnStdout: true).trim()
                                 def jarFile = sh(script: "ls ${module}/target/*.jar", returnStdout: true).trim()
                                 sh """
                                     docker build \
@@ -101,7 +102,8 @@ pipeline {
                         stage("Run New Docker Container: container-${module}") {
                             script {
                                 def version = sh(script: "mvn -pl ${module} help:evaluate -Dexpression=project.version -q -DforceStdout", returnStdout: true).trim()
-                                def port = sh(script: "yq eval '.server.port' ${module}/src/main/resources/application-${ACTIVE_PROFILE}.yml", returnStdout: true).trim()
+                                //def port = sh(script: "yq eval '.server.port' ${module}/src/main/resources/application.yml", returnStdout: true).trim()
+                                def port = sh(script: "grep 'server.port' ${module}/src/main/resources/application.yml | cut -d' ' -f2", returnStdout: true).trim()
                                 sh """
 				                    docker run \
 				                    	-d --name container-${module} --network ${DOCKER_NETWORK} \

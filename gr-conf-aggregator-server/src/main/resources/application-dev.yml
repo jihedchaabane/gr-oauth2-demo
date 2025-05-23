@@ -1,0 +1,71 @@
+eureka.fetch.seconds: 120
+aggregator.eureka.enabled: true
+
+#dev
+params:
+  eureka:
+    uri: http://container-gr-eureka-server:8761/eureka/
+  oauth2:
+    issuerUri: http://container-gr-auth-server:8764
+    #----> for SPRINGBOOT-OAUTH2-EXTERNAL-RESTTEMPLATE-CONSUMER until: 
+    #----> @TODO try to replace it with eureka discovery alternative.
+    #----> .issuer("http://GR-AUTH-SERVER")
+    loadBalancedIssuerUri: http://GR-AUTH-SERVER
+  gateway:
+    uri: http://localhost:8766
+  gatewayOauth2:
+    uri: http://GR-API-GATEWAY
+  swaggerAggregator:
+    uri: http://container-gr-conf-aggregator-server:8765
+  zipkin:
+    uri: http://container-zipkin:9411
+  keystore:
+    type: PKCS12
+    path: file:/certificates/ms2.p12
+    password: jihed123
+    alias: ms2
+  truststore:
+    path: file:/certificates/ms1-truststore.jks
+    password: jihed1234
+######################################################
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+    # Activer le mode "try it out" pour tous les endpoints
+    try-it-out-enabled: true
+  extraScripts:
+    - /static/custom-swagger.js
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+
+##----> START : uri de gr-conf-swagger-aggregator
+swagger-params:
+  issuerUri: ${params.oauth2.issuerUri}
+  servers:
+    liste:
+      - uri: http://localhost:${server.port}
+        description: Local environment
+      - uri: http://10.0.0.137:${server.port}
+        description: Development environment
+      - uri: http://10.0.0.500:${server.port}
+        description: Homologation environment
+      - uri: http://10.0.0.500:${server.port}
+        description: Production environment
+  aggregator:
+    enabled: ${aggregator.eureka.enabled:false}
+    cors:
+      uri: ${params.swaggerAggregator.uri}
+######################################################
+caller:
+  destination:
+    # gr-conf-swagger-aggregator from swagger.
+    client0:
+      resourceUri:
+      clientId:
+      clientSecret:
+      scopes:
+      registrationId:

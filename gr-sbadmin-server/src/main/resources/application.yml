@@ -20,7 +20,7 @@ spring:
             provider: gr-auth-server
         provider:
           gr-auth-server:
-            token-uri: http://localhost:8764/oauth2/token
+            token-uri: ${params.oauth2.issuerUri}/oauth2/token
 #############################################################
 # java -jar fakesmtp-2.0.jar -p 2525
 # https://threadminions.wordpress.com/2019/06/25/alert-with-spring-boot-admin-server/
@@ -96,53 +96,6 @@ management:
     git:
       mode: full
 
-##----> START : uri de gr-conf-swagger-aggregator
-swagger-params:
-  issuerUri: ${params.oauth2.issuerUri}
-  servers:
-    liste:
-      - uri: http://localhost:${server.port}
-        description: Local environment
-      - uri: http://10.0.0.137:${server.port}
-        description: Development environment
-      - uri: http://10.0.0.500:${server.port}
-        description: Homologation environment
-      - uri: http://10.0.0.500:${server.port}
-        description: Production environment
-  aggregator:
-    enabled: ${aggregator.eureka.enabled:false}
-    cors:
-      uri: ${params.swaggerAggregator.uri}
-#############################################################
-#local
-params:
-  eureka:
-    uri: http://localhost:8761/eureka/
-  oauth2:
-    issuerUri: http://localhost:8764
-    #----> for SPRINGBOOT-OAUTH2-EXTERNAL-RESTTEMPLATE-CONSUMER until: 
-    #----> @TODO try to replace it with eureka discovery alternative.
-    #----> .issuer("http://GR-AUTH-SERVER")
-    loadBalancedIssuerUri: http://GR-AUTH-SERVER
-  gateway:
-    uri: http://localhost:8766
-  gatewayOauth2:
-    uri: http://GR-API-GATEWAY
-  swaggerAggregator:
-    uri: http://localhost:8765
-  zipkin:
-    uri: http://localhost:9411
-  keystore:
-    type: PKCS12
-    path: file:C:/E/TOOLS/ms2.p12
-    password: jihed123
-    alias: ms2
-  truststore:
-    path: C:/E/TOOLS/ms1-truststore.jks
-    password: jihed1234
-
-## uri/enabled de gr-conf-swagger-aggregator
-aggregator.eureka.enabled: false
 #############################################################
 logging:
   level:
