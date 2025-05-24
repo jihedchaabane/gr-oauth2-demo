@@ -40,6 +40,11 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>${springdoc.version}</version>
 		</dependency>
+		<!-- SPRING-CLOUD-STARTER-NETFLIX-EUREKA-CLIENT -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
 		
 	</dependencies>
 </project>
