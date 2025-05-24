@@ -34,7 +34,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 public class AuthServerSecurityConfig {
 	private static final Logger logger = LoggerFactory.getLogger(AuthServerSecurityConfig.class);
@@ -45,7 +45,6 @@ public class AuthServerSecurityConfig {
 	public AuthServerSecurityConfig(CorsConfigurationSource corsConfigurationSource, ServiceParamsProperties serviceParamsProperties) {
 		this.corsConfigurationSource = corsConfigurationSource;
 		this.serviceParamsProperties = serviceParamsProperties;
-		logger.info("AuthServerSecurityConfig initialisée");
 	}
 
 	@Bean
