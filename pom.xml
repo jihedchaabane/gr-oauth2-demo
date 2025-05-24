@@ -96,8 +96,8 @@
 						<includeOnlyProperty>git.dirty</includeOnlyProperty>
 					</includeOnlyProperties>
 					<!--
-					<validationProperties>
-						<validationProperty>
+					<validationProperties>			        
+						      <validationProperty>
 			                <name>validating git dirty</name>
 			                <value>${git.dirty}</value>
 			                <shouldMatchTo>false</shouldMatchTo>
