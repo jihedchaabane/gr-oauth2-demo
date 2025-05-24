@@ -1,5 +1,4 @@
-server:
-  port: 7766
+server.port: 7766
 
 spring:
   application:
@@ -36,7 +35,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8764
+          issuer-uri: ${params.oauth2.issuerUri}
 ########################################################
 eureka:
   client:
@@ -45,7 +44,7 @@ eureka:
     register-with-eureka: true
     registry-fetch-interval-seconds: ${eureka.fetch.seconds:25}
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${params.eureka.uri}
   instance:
     preferIpAddress: true
     #----> Remove ipAddress and hostname to let Eureka resolve dynamically
@@ -71,6 +70,3 @@ management:
   info:
     git:
       mode: full
-
-## uri/enabled de gr-conf-swagger-aggregator
-aggregator.eureka.enabled: false

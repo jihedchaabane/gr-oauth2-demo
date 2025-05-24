@@ -1,0 +1,30 @@
+## uri/enabled de gr-conf-swagger-aggregator
+aggregator.eureka.enabled: false
+
+###################################################################
+#local
+params:
+  eureka:
+    uri: http://localhost:8761/eureka/
+  oauth2:
+    issuerUri: http://localhost:8764
+    #----> for SPRINGBOOT-OAUTH2-EXTERNAL-RESTTEMPLATE-CONSUMER until: 
+    #----> @TODO try to replace it with eureka discovery alternative.
+    #----> .issuer("http://GR-AUTH-SERVER")
+    loadBalancedIssuerUri: http://GR-AUTH-SERVER
+  gateway:
+    uri: http://localhost:8766
+  gatewayOauth2:
+    uri: http://GR-API-GATEWAY
+  swaggerAggregator:
+    uri: http://localhost:8765
+  zipkin:
+    uri: http://localhost:9411
+  keystore:
+    type: PKCS12
+    path: file:C:/E/TOOLS/ms2.p12
+    password: jihed123
+    alias: ms2
+  truststore:
+    path: C:/E/TOOLS/ms1-truststore.jks
+    password: jihed1234

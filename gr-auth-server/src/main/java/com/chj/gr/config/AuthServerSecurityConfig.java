@@ -27,6 +27,7 @@ import org.springframework.security.oauth2.server.authorization.config.TokenSett
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import com.chj.gr.properties.ServiceParamsProperties;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -39,9 +40,11 @@ public class AuthServerSecurityConfig {
 	private static final Logger logger = LoggerFactory.getLogger(AuthServerSecurityConfig.class);
 	
 	private CorsConfigurationSource corsConfigurationSource;
+	private ServiceParamsProperties serviceParamsProperties;
 	
-	public AuthServerSecurityConfig(CorsConfigurationSource corsConfigurationSource) {
+	public AuthServerSecurityConfig(CorsConfigurationSource corsConfigurationSource, ServiceParamsProperties serviceParamsProperties) {
 		this.corsConfigurationSource = corsConfigurationSource;
+		this.serviceParamsProperties = serviceParamsProperties;
 		logger.info("AuthServerSecurityConfig initialisée");
 	}
 
@@ -79,7 +82,7 @@ public class AuthServerSecurityConfig {
         		@TODO try to replace it with eureka discovery alternative.	
 				.issuer("http://GR-AUTH-SERVER")
                */
-        		.issuer("http://localhost:8764")
+        		.issuer(serviceParamsProperties.getOauth2().getIssuerUri())
         		.tokenEndpoint("/oauth2/token")
                 .build();
     }
