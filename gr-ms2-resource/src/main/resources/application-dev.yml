@@ -1,7 +1,5 @@
-## uri/enabled de gr-conf-swagger-aggregator
 aggregator.eureka.enabled: true
 
-##----> START : uri de gr-conf-swagger-aggregator
 swagger-params:
   issuerUri: ${params.oauth2.issuerUri}
   servers:
@@ -25,12 +23,6 @@ params:
     uri: http://container-gr-eureka-server:8761/eureka/
   oauth2:
     issuerUri: http://container-gr-auth-server:8764
-    #----> for SPRINGBOOT-OAUTH2-EXTERNAL-RESTTEMPLATE-CONSUMER until: 
-    #----> @TODO try to replace it with eureka discovery alternative.
-    #----> .issuer("http://GR-AUTH-SERVER")
-    loadBalancedIssuerUri: http://GR-AUTH-SERVER
-  gateway:
-    uri: http://localhost:8766
   gatewayOauth2:
     uri: http://GR-API-GATEWAY
   swaggerAggregator:

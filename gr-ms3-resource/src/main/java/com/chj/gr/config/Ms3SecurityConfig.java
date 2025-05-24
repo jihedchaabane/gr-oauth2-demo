@@ -21,7 +21,7 @@ public class Ms3SecurityConfig {
 //            .antMatchers("/actuator/**").permitAll()
             .antMatchers("/actuator/**").hasAuthority("SCOPE_actuator.read")
             
-            .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+            .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .oauth2ResourceServer()

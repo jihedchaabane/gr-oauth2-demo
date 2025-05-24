@@ -3,6 +3,18 @@ package com.chj.gr.clients;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * WORKS
+https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#netflix-feign-starter
+config:
+  feign:
+    gateway: GR-API-GATEWAY
+@FeignClient(name = "${config.feign.gateway}", contextId = "gr-resource-consumer-feign-protected")
+*/
+
+/** @TODO SPEL NOT WORKING */
+//@FeignClient(name = "#{${params.gatewayOauth2.uri}.replace('http://', '')}", contextId = "gr-resource-consumer-feign-protected")
+
 @FeignClient(name = "GR-API-GATEWAY", contextId = "gr-resource-consumer-feign-protected")
 public interface FeignGatewayProtectedClient {
 	/**

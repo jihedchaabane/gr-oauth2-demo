@@ -20,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
     public void addCorsMappings(CorsRegistry registry) {
-		logger.info("Allowed Origins : {}.", swaggerParamsProperties.getAggregator().getCors().getUri());
+		logger.info("Allowed Origins : {}", swaggerParamsProperties.getAggregator().getCors().getUri());
 		logger.info("Allowed Methods : GET, POST, PUT, DELETE, OPTIONS");
 		logger.info("Allowed Headers : \"*\"");
 		logger.info("Allowed Credentials : true");

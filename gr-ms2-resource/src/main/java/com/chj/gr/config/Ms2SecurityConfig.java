@@ -19,7 +19,7 @@ public class Ms2SecurityConfig {
             .antMatchers("/gr-ms2-resource/public/**").permitAll()
             
             .antMatchers("/actuator/**").permitAll()
-            .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+            .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .oauth2ResourceServer()

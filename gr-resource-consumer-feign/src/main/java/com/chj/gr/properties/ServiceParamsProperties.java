@@ -14,7 +14,6 @@ public class ServiceParamsProperties {
 
     private Eureka eureka = new Eureka();
     private Oauth2 oauth2 = new Oauth2();
-    private Gateway gateway = new Gateway();
     private GatewayOauth2 gatewayOauth2 = new GatewayOauth2();
     private SwaggerAggregator swaggerAggregator = new SwaggerAggregator();
     private Zipkin zipkin = new Zipkin();
@@ -35,14 +34,6 @@ public class ServiceParamsProperties {
 
     public void setOauth2(Oauth2 oauth2) {
         this.oauth2 = oauth2;
-    }
-
-    public Gateway getGateway() {
-        return gateway;
-    }
-
-    public void setGateway(Gateway gateway) {
-        this.gateway = gateway;
     }
 
     public GatewayOauth2 getGatewayOauth2() {
@@ -100,7 +91,6 @@ public class ServiceParamsProperties {
 
     public static class Oauth2 {
         private String issuerUri;
-        private String loadBalancedIssuerUri;
         public String getIssuerUri() {
             return issuerUri;
         }
@@ -108,14 +98,6 @@ public class ServiceParamsProperties {
         public void setIssuerUri(String issuerUri) {
             this.issuerUri = issuerUri;
         }
-
-		public String getLoadBalancedIssuerUri() {
-			return loadBalancedIssuerUri;
-		}
-
-		public void setLoadBalancedIssuerUri(String loadBalancedIssuerUri) {
-			this.loadBalancedIssuerUri = loadBalancedIssuerUri;
-		}
     }
 
     public static class Gateway {
