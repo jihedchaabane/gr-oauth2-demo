@@ -107,9 +107,6 @@ public class AuthServerSecurityConfig {
         		ms1Client.getClientId(),
         		ms1Client.getScopes(),
         		ms1Client.getAuthorizationGrantTypes());
-        /**
-         * 
-         */
         RegisteredClient ms2Client = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-ms2-resource")
                 .clientSecret("{noop}secret2")
@@ -128,9 +125,6 @@ public class AuthServerSecurityConfig {
         		ms2Client.getClientId(),
         		ms2Client.getScopes(),
         		ms2Client.getAuthorizationGrantTypes());
-        /**
-         * 
-         */
         RegisteredClient ms3Client = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-ms3-resource")
                 .clientSecret("{noop}secret3")
@@ -150,9 +144,6 @@ public class AuthServerSecurityConfig {
         		ms3Client.getClientId(),
         		ms3Client.getScopes(),
         		ms3Client.getAuthorizationGrantTypes());
-        /**
-         * 
-         */
         RegisteredClient restTemplateClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-resource-consumer-resttemplate")
                 .clientSecret("{noop}consumer-resttemplate")
@@ -173,7 +164,6 @@ public class AuthServerSecurityConfig {
         		restTemplateClient.getClientId(),
         		restTemplateClient.getScopes(),
         		restTemplateClient.getAuthorizationGrantTypes());
-        
         RegisteredClient webclient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-resource-consumer-webclient")
                 .clientSecret("{noop}consumer-webclient")
@@ -194,7 +184,6 @@ public class AuthServerSecurityConfig {
         		webclient.getClientId(),
         		webclient.getScopes(),
         		webclient.getAuthorizationGrantTypes());
-        
         RegisteredClient feignClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-resource-consumer-feign")
                 .clientSecret("{noop}consumer-feign")
@@ -215,6 +204,49 @@ public class AuthServerSecurityConfig {
         		feignClient.getClientId(),
         		feignClient.getScopes(),
         		feignClient.getAuthorizationGrantTypes());
+        /**
+         * gr-oauth2-swagger-demo
+         */
+        /** gr-oauth2-swagger-ms1 */
+        RegisteredClient grOauth2SwaggerMs1 = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("gr-oauth2-swagger-ms1")
+                .clientSecret("{noop}swagger-ms1")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scope("read")
+                .scope("write")
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .tokenSettings(
+                		/**
+                		 * Expiration de 1 jour.
+                		 */
+                		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
+                )
+                .build();
+        logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
+        		grOauth2SwaggerMs1.getClientId(),
+        		grOauth2SwaggerMs1.getScopes(),
+        		grOauth2SwaggerMs1.getAuthorizationGrantTypes());
+        /** gr-oauth2-swagger-ms2 */
+        RegisteredClient grOauth2SwaggerMs2 = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("gr-oauth2-swagger-ms2")
+                .clientSecret("{noop}swagger-ms2")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scope("update")
+                .scope("remove")
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .tokenSettings(
+                		/**
+                		 * Expiration de 1 jour.
+                		 */
+                		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
+                )
+                .build();
+        logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
+        		grOauth2SwaggerMs2.getClientId(),
+        		grOauth2SwaggerMs2.getScopes(),
+        		grOauth2SwaggerMs2.getAuthorizationGrantTypes());
         
         return new InMemoryRegisteredClientRepository(
         		ms1Client, 
@@ -222,22 +254,41 @@ public class AuthServerSecurityConfig {
         		ms3Client,
         		restTemplateClient, 
         		webclient, 
-        		feignClient
+        		feignClient,
+        		/**
+        		 * gr-oauth2-swagger-demo.
+        		 */
+        		grOauth2SwaggerMs1,
+        		grOauth2SwaggerMs2
         );
     }
 
     @Bean
-    public JWKSource<SecurityContext> jwkSource() throws Exception {
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-        keyPairGenerator.initialize(2048);
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+    public JWKSource<SecurityContext> jwkSource() {
+        RSAKey rsaKey = generateRsa();
+        JWKSet jwkSet = new JWKSet(rsaKey);
+        return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
+    }
+
+    private static RSAKey generateRsa() {
+        KeyPair keyPair = generateRsaKey();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-        RSAKey rsaKey = new RSAKey.Builder(publicKey)
+        return new RSAKey.Builder(publicKey)
                 .privateKey(privateKey)
                 .keyID(UUID.randomUUID().toString())
                 .build();
-        JWKSet jwkSet = new JWKSet(rsaKey);
-        return new ImmutableJWKSet<>(jwkSet);
+    }
+
+    private static KeyPair generateRsaKey() {
+        KeyPair keyPair;
+        try {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+            keyPairGenerator.initialize(2048);
+            keyPair = keyPairGenerator.generateKeyPair();
+        } catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
+        return keyPair;
     }
 }

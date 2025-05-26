@@ -100,18 +100,6 @@ public class ServiceParamsProperties {
         }
     }
 
-    public static class Gateway {
-        private String uri;
-
-        public String getUri() {
-            return uri;
-        }
-
-        public void setUri(String uri) {
-            this.uri = uri;
-        }
-    }
-
     public static class GatewayOauth2 {
         private String uri;
 

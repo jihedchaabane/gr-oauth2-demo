@@ -12,6 +12,8 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
+
+# gr-oauth2-demo
         - id: gr-ms1-resource
           uri: lb://GR-MS1-RESOURCE
           predicates:
@@ -28,6 +30,20 @@ spring:
           uri: lb://GR-MS3-RESOURCE
           predicates:
             - Path=/ms3/**
+          filters:
+            - StripPrefix=1
+
+# gr-oauth2-swagger-demo
+        - id: gr-oauth2-swagger-ms1
+          uri: lb://GR-OAUTH2-SWAGGER-MS1
+          predicates:
+            - Path=/ms4/**
+          filters:
+            - StripPrefix=1
+        - id: gr-oauth2-swagger-ms2
+          uri: lb://GR-OAUTH2-SWAGGER-MS2
+          predicates:
+            - Path=/ms5/**
           filters:
             - StripPrefix=1
 
