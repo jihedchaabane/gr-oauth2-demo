@@ -91,24 +91,13 @@ public class ServiceParamsProperties {
 
     public static class Oauth2 {
         private String issuerUri;
+
         public String getIssuerUri() {
             return issuerUri;
         }
 
         public void setIssuerUri(String issuerUri) {
             this.issuerUri = issuerUri;
-        }
-    }
-
-    public static class Gateway {
-        private String uri;
-
-        public String getUri() {
-            return uri;
-        }
-
-        public void setUri(String uri) {
-            this.uri = uri;
         }
     }
 
