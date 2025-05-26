@@ -12,7 +12,7 @@ spring:
         registration:
           ms1:
             client-id: gr-ms1-resource
-            client-secret: secret1
+            client-secret: ms1-resource
             scope: ms1.read,ms2.read
             authorization-grant-type: client_credentials
             provider: gr-auth-server

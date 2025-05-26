@@ -21,6 +21,15 @@ public class ApiGatewaySecurityConfig {
             .pathMatchers("/ms4/gr-oauth2-swagger-ms1/public/**").permitAll()
             .pathMatchers("/ms5/gr-oauth2-swagger-ms2/public/**").permitAll()
             
+            .pathMatchers("/ms6/z-springboot-bar-service/**").permitAll()
+            .pathMatchers("/ms7/z-springboot-foo-service/**").permitAll()
+            .pathMatchers("/ms8/z-springboot-hello/**").permitAll()
+            .pathMatchers("/ms9/z-springboot-hello-world-service/**").permitAll()
+            
+            .pathMatchers("/ms10/springboot-oauth2-client1/public/**").permitAll()
+            .pathMatchers("/ms11/springboot-oauth2-client2/public/**").permitAll()
+            .pathMatchers("/ms12/sts-spring-boot-resource-server/public/**").permitAll()
+            
             .pathMatchers("/actuator/**").permitAll()
             .anyExchange().authenticated()
             .and()

@@ -50,7 +50,7 @@ springdoc:
     try-it-out-enabled: true
     oauth:
       clientId: gr-ms2-resource
-      clientSecret: secret2
+      clientSecret: ms2-resource
   show-actuator: false # activer sinon pour voir les endpoints actuator dans le swagger.
 ###################################################################
 caller:
@@ -59,6 +59,6 @@ caller:
     client0:
       resourceUri:
       clientId: gr-ms2-resource
-      clientSecret: secret2
+      clientSecret: ms2-resource
       scopes: ms2.read
       registrationId: gr-ms2-resource

@@ -30,7 +30,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import com.chj.gr.properties.ServiceParamsProperties;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
@@ -90,7 +89,7 @@ public class AuthServerSecurityConfig {
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClient ms1Client = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-ms1-resource")
-                .clientSecret("{noop}secret1")
+                .clientSecret("{noop}ms1-resource")
                 .scope("ms1.read")
                 .scope("ms2.read")
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
@@ -109,7 +108,7 @@ public class AuthServerSecurityConfig {
         		ms1Client.getAuthorizationGrantTypes());
         RegisteredClient ms2Client = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-ms2-resource")
-                .clientSecret("{noop}secret2")
+                .clientSecret("{noop}ms2-resource")
                 .scope("ms2.read")
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
@@ -127,7 +126,7 @@ public class AuthServerSecurityConfig {
         		ms2Client.getAuthorizationGrantTypes());
         RegisteredClient ms3Client = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("gr-ms3-resource")
-                .clientSecret("{noop}secret3")
+                .clientSecret("{noop}ms3-resource")
                 .scope("ms3.read")
                 .scope("actuator.read")
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
@@ -247,7 +246,73 @@ public class AuthServerSecurityConfig {
         		grOauth2SwaggerMs2.getClientId(),
         		grOauth2SwaggerMs2.getScopes(),
         		grOauth2SwaggerMs2.getAuthorizationGrantTypes());
-        
+        /**
+         * sts-oauth2-client-credentials-server-to-server-demo
+         */
+        /** springboot-oauth2-client1 */
+        RegisteredClient client1 = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("client1")
+                .clientSecret("{noop}secret1")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scope("client1.read")
+                .scope("client1.write")
+                .scope("client2.read")
+                .scope("client2.write")
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+                .tokenSettings(
+                		/**
+                		 * Expiration de 1 jour.
+                		 */
+                		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
+                )
+                .build();
+        logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
+        		client1.getClientId(),
+        		client1.getScopes(),
+        		client1.getAuthorizationGrantTypes());
+       /** springboot-oauth2-client2 */
+       RegisteredClient client2 = RegisteredClient.withId(UUID.randomUUID().toString())
+               .clientId("client2")
+               .clientSecret("{noop}secret2")
+               .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+               .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+               .scope("client2.read")
+               .scope("client2.write")
+               .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+               .tokenSettings(
+               		/**
+               		 * Expiration de 1 jour.
+               		 */
+               		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
+               )
+               .build();
+       logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
+       		client2.getClientId(),
+       		client2.getScopes(),
+       		client2.getAuthorizationGrantTypes());
+       /** sts-spring-boot-resource-server */
+       RegisteredClient client3 = RegisteredClient.withId(UUID.randomUUID().toString())
+               .clientId("products-client")
+               .clientSecret("{noop}secret")
+               .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+               .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+               .scope("products.read")
+               .scope("products.write")
+               .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
+               .tokenSettings(
+               		/**
+               		 * Expiration de 1 jour.
+               		 */
+               		TokenSettings.builder().accessTokenTimeToLive(Duration.ofDays(1)).build()
+               )
+               .build();
+       logger.info("Client créé : clientId={}, scopes={}, grantTypes={}",
+       		client3.getClientId(),
+       		client3.getScopes(),
+       		client3.getAuthorizationGrantTypes());
+       
+       
         return new InMemoryRegisteredClientRepository(
         		ms1Client, 
         		ms2Client, 
@@ -259,7 +324,13 @@ public class AuthServerSecurityConfig {
         		 * gr-oauth2-swagger-demo.
         		 */
         		grOauth2SwaggerMs1,
-        		grOauth2SwaggerMs2
+        		grOauth2SwaggerMs2,
+        		/**
+        		 * 
+        		 */
+        		client1,
+        		client2,
+        		client3
         );
     }
 

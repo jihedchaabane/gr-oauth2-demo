@@ -46,6 +46,51 @@ spring:
             - Path=/ms5/**
           filters:
             - StripPrefix=1
+# z-docker-containeried-microservices-easy
+        - id: z-springboot-bar-service
+          uri: lb://Z-SPRINGBOOT-BAR-SERVICE
+          predicates:
+            - Path=/ms6/**
+          filters:
+            - StripPrefix=1
+        - id: z-springboot-foo-service
+          uri: lb://Z-SPRINGBOOT-FOO-SERVICE
+          predicates:
+            - Path=/ms7/**
+          filters:
+            - StripPrefix=1
+        - id: z-springboot-hello
+          uri: lb://Z-SPRINGBOOT-HELLO
+          predicates:
+            - Path=/ms8/**
+          filters:
+            - StripPrefix=1
+        - id: z-springboot-hello-world-service
+          uri: lb://Z-SPRINGBOOT-HELLO-WORLD-SERVICE
+          predicates:
+            - Path=/ms9/**
+          filters:
+            - StripPrefix=1
+# sts-oauth2-client-credentials-server-to-server-demo
+        - id: springboot-oauth2-client1
+          uri: lb://SPRINGBOOT-OAUTH2-CLIENT1
+          predicates:
+            - Path=/ms10/**
+          filters:
+            - StripPrefix=1
+        - id: springboot-oauth2-client2
+          uri: lb://SPRINGBOOT-OAUTH2-CLIENT2
+          predicates:
+            - Path=/ms11/**
+          filters:
+            - StripPrefix=1
+        - id: sts-spring-boot-resource-server
+          uri: lb://STS-SPRING-BOOT-RESOURCE-SERVER
+          predicates:
+            - Path=/ms12/**
+          filters:
+            - StripPrefix=1
+
 
   security:
     oauth2:
