@@ -249,7 +249,7 @@ public class AuthServerSecurityConfig {
         /**
          * sts-oauth2-client-credentials-server-to-server-demo
          */
-        /** springboot-oauth2-client1 */
+        /** sts-oauth2-client1-resource */
         RegisteredClient client1 = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("client1")
                 .clientSecret("{noop}secret1")
@@ -271,7 +271,7 @@ public class AuthServerSecurityConfig {
         		client1.getClientId(),
         		client1.getScopes(),
         		client1.getAuthorizationGrantTypes());
-       /** springboot-oauth2-client2 */
+       /** sts-oauth2-client2-resource */
        RegisteredClient client2 = RegisteredClient.withId(UUID.randomUUID().toString())
                .clientId("client2")
                .clientSecret("{noop}secret2")
@@ -291,7 +291,7 @@ public class AuthServerSecurityConfig {
        		client2.getClientId(),
        		client2.getScopes(),
        		client2.getAuthorizationGrantTypes());
-       /** sts-spring-boot-resource-server */
+       /** sts-oauth2-products-resource */
        RegisteredClient client3 = RegisteredClient.withId(UUID.randomUUID().toString())
                .clientId("products-client")
                .clientSecret("{noop}secret")

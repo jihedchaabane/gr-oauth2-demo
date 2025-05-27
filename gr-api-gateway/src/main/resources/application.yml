@@ -72,20 +72,20 @@ spring:
           filters:
             - StripPrefix=1
 # sts-oauth2-client-credentials-server-to-server-demo
-        - id: springboot-oauth2-client1
-          uri: lb://SPRINGBOOT-OAUTH2-CLIENT1
+        - id: sts-oauth2-client1-resource
+          uri: lb://STS-OAUTH2-CLIENT1-RESOURCE
           predicates:
             - Path=/ms10/**
           filters:
             - StripPrefix=1
-        - id: springboot-oauth2-client2
-          uri: lb://SPRINGBOOT-OAUTH2-CLIENT2
+        - id: sts-oauth2-client2-resource
+          uri: lb://STS-OAUTH2-CLIENT2-RESOURCE
           predicates:
             - Path=/ms11/**
           filters:
             - StripPrefix=1
-        - id: sts-spring-boot-resource-server
-          uri: lb://STS-SPRING-BOOT-RESOURCE-SERVER
+        - id: sts-oauth2-products-resource
+          uri: lb://STS-OAUTH2-PRODUCTS-RESOURCE
           predicates:
             - Path=/ms12/**
           filters:

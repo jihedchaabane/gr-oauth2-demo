@@ -26,9 +26,9 @@ public class ApiGatewaySecurityConfig {
             .pathMatchers("/ms8/z-springboot-hello/**").permitAll()
             .pathMatchers("/ms9/z-springboot-hello-world-service/**").permitAll()
             
-            .pathMatchers("/ms10/springboot-oauth2-client1/public/**").permitAll()
-            .pathMatchers("/ms11/springboot-oauth2-client2/public/**").permitAll()
-            .pathMatchers("/ms12/sts-spring-boot-resource-server/public/**").permitAll()
+            .pathMatchers("/ms10/sts-oauth2-client1-resource/public/**").permitAll()
+            .pathMatchers("/ms11/sts-oauth2-client2-resource/public/**").permitAll()
+            .pathMatchers("/ms12/sts-oauth2-products-resource/public/**").permitAll()
             
             .pathMatchers("/actuator/**").permitAll()
             .anyExchange().authenticated()
