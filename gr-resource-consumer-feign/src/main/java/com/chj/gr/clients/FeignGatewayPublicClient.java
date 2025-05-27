@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#netflix-feign-starter
 config:
   feign:
-    gateway: GR-API-GATEWAY
+    gateway: SPRINGBOOT-CONF-GATEWAY-API-OAUTH2
 @FeignClient(name = "${config.feign.gateway}", contextId = "gr-resource-consumer-feign-public")
 */
 
 /** @TODO SPEL NOT WORKING */
 //@FeignClient(name = "#{${params.gatewayOauth2.uri}.replace('http://', '')}", contextId = "gr-resource-consumer-feign-public")
 
-@FeignClient(name = "GR-API-GATEWAY", contextId = "gr-resource-consumer-feign-public")
+@FeignClient(name = "SPRINGBOOT-CONF-GATEWAY-API-OAUTH2", contextId = "gr-resource-consumer-feign-public")
 public interface FeignGatewayPublicClient {
 	/**
 	 * PUBLIC endpoints.

@@ -32,19 +32,19 @@ public class ConsumerRestTemplateMS2Controller {
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-        		"http://GR-API-GATEWAY/ms2/gr-ms2-resource/protected/get",
+        		"http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms2/gr-ms2-resource/protected/get",
                 HttpMethod.GET,
                 entity,
                 String.class
         );
-        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> GR-API-GATEWAY ==> " + response.getBody();
+        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + response.getBody();
     }
 
     @Operation(summary = "Call GR-MS2-RESOURCE public endpoint")
     @GetMapping("/call-ms2-public")
     public String callMs2Public() {
     	
-        String url = "http://GR-API-GATEWAY/ms2/gr-ms2-resource/public/get";
-        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> GR-API-GATEWAY ==> " + restTemplate.getForObject(url, String.class);
+        String url = "http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms2/gr-ms2-resource/public/get";
+        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + restTemplate.getForObject(url, String.class);
     }
 }

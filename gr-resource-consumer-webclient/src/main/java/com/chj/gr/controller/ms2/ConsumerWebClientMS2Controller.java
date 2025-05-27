@@ -24,7 +24,7 @@ public class ConsumerWebClientMS2Controller {
     public String callMs2(@Parameter(hidden = true) @RegisteredOAuth2AuthorizedClient("consumer-webclient") OAuth2AuthorizedClient authorizedClient) {
     	String responseJson =  this.webClient
                 .get()
-                .uri("http://GR-API-GATEWAY/ms2/gr-ms2-resource/protected/get")
+                .uri("http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms2/gr-ms2-resource/protected/get")
                 .attributes(clientRegistrationId("consumer-webclient"))
                 .retrieve()
                 .bodyToMono(String.class)
@@ -34,20 +34,20 @@ public class ConsumerWebClientMS2Controller {
     	 */
 //    	String responseJson =  this.webClient
 //    			.get()
-//                .uri("http://GR-API-GATEWAY/ms2/gr-ms2-resource/protected/get")
+//                .uri("http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms2/gr-ms2-resource/protected/get")
 //                .header("Authorization", "Bearer " + authorizedClient.getAccessToken().getTokenValue())
 //                .retrieve()
 //                .bodyToMono(String.class)
 //                .block();
     	
-        return "GR-RESOURCE-CONSUMER-WEBCLIENT ==> GR-API-GATEWAY ==> " + responseJson;
+        return "GR-RESOURCE-CONSUMER-WEBCLIENT ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + responseJson;
     }
 	
 	@Operation(summary = "Call GR-MS2-RESOURCE public endpoint")
     @GetMapping("/call-ms2-public")
     public String callMs2Public() {
     	
-        String url = "http://GR-API-GATEWAY/ms2/gr-ms2-resource/public/get";
+        String url = "http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms2/gr-ms2-resource/public/get";
         String responseJson = this.webClient
         		.get()
                 .uri(url)
@@ -55,6 +55,6 @@ public class ConsumerWebClientMS2Controller {
                 .bodyToMono(String.class)
                 .block();
         
-        return "GR-RESOURCE-CONSUMER-WEBCLIENT ==> GR-API-GATEWAY ==> " + responseJson;
+        return "GR-RESOURCE-CONSUMER-WEBCLIENT ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + responseJson;
     }
 }

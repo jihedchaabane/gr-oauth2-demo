@@ -24,7 +24,7 @@ public class ConsumerWebClientMS1Controller {
     public String callMs1(@Parameter(hidden = true) @RegisteredOAuth2AuthorizedClient("consumer-webclient") OAuth2AuthorizedClient authorizedClient) {
     	String responseJson =  this.webClient
                 .get()
-                .uri("http://GR-API-GATEWAY/ms1/gr-ms1-resource/protected/ms2")
+                .uri("http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms1/gr-ms1-resource/protected/ms2")
                 .attributes(clientRegistrationId("consumer-webclient"))
                 .retrieve()
                 .bodyToMono(String.class)
@@ -34,20 +34,20 @@ public class ConsumerWebClientMS1Controller {
     	 */
 //    	String responseJson =  this.webClient
 //                .get()
-//                .uri("http://GR-API-GATEWAY/ms1/gr-ms1-resource/protected/ms2")
+//                .uri("http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms1/gr-ms1-resource/protected/ms2")
 //                .header("Authorization", "Bearer " + authorizedClient.getAccessToken().getTokenValue())
 //                .retrieve()
 //                .bodyToMono(String.class)
 //                .block();
     	
-        return "GR-RESOURCE-CONSUMER-WEBCLIENT ==> GR-API-GATEWAY ==> " + responseJson;
+        return "GR-RESOURCE-CONSUMER-WEBCLIENT ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + responseJson;
     }
 	
 	@Operation(summary = "Call GR-MS1-RESOURCE public endpoint")
 	@GetMapping("/call-ms1-public")
     public String callMs1Public() {
     	
-        String url = "http://GR-API-GATEWAY/ms1/gr-ms1-resource/public/ms2";
+        String url = "http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms1/gr-ms1-resource/public/ms2";
         String responseJson = this.webClient
         		.get()
                 .uri(url)
@@ -55,6 +55,6 @@ public class ConsumerWebClientMS1Controller {
                 .bodyToMono(String.class)
                 .block();
         
-        return "GR-RESOURCE-CONSUMER-WEBCLIENT ==> GR-API-GATEWAY ==> " + responseJson;
+        return "GR-RESOURCE-CONSUMER-WEBCLIENT ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + responseJson;
 	}
 }

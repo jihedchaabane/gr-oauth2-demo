@@ -46,7 +46,7 @@ public class ConsumerFeignMS3Controller {
         
 		String responseJson = feignGatewayProtectedClient.callMs3Protected();
 		
-		return "GR-RESOURCE-CONSUMER-FEIGN ==> GR-API-GATEWAY ==> " + responseJson;
+		return "GR-RESOURCE-CONSUMER-FEIGN ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + responseJson;
 	}
 	
 	@Operation(summary = "Call GR-MS3-RESOURCE public endpoint")
@@ -55,6 +55,6 @@ public class ConsumerFeignMS3Controller {
     	
     	String responseJson = feignGatewayPublicClient.callMs3Public();
         
-        return "GR-RESOURCE-CONSUMER-FEIGN ==> GR-API-GATEWAY ==> " + responseJson;
+        return "GR-RESOURCE-CONSUMER-FEIGN ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + responseJson;
     }
 }
