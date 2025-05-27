@@ -1,4 +1,12 @@
 aggregator.eureka.enabled: true
+params.restTemplateConfiguration.enabled: true
+swagger-params.enabled: true
+
+springdoc:
+  swagger-ui:
+    oauth:
+      clientId: gr-ms1-resource
+      clientSecret: ms1-resource
 
 swagger-params:
   issuerUri: ${params.oauth2.issuerUri}
@@ -37,20 +45,6 @@ params:
   truststore:
     path: C:/E/TOOLS/ms1-truststore.jks
     password: jihed1234
-###################################################################
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    operations-sorter: method
-    tags-sorter: alpha
-    # Activer le mode "try it out" pour tous les endpoints
-    try-it-out-enabled: true
-    oauth:
-      clientId: gr-ms1-resource
-      clientSecret: ms1-resource
-  show-actuator: false # activer sinon pour voir les endpoints actuator dans le swagger.
 ###################################################################
 caller:
   destination:
