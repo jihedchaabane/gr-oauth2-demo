@@ -11,13 +11,14 @@ spring:
       client:
         registration:
           consumer-webclient:
+            provider: sts-provider
             client-id: gr-resource-consumer-webclient
             client-secret: consumer-webclient
             scope: ms1.read,ms2.read,ms3.read
+            client-name: gr-resource-consumer-webclient-registration
             authorization-grant-type: client_credentials
-            provider: gr-auth-server
         provider:
-          gr-auth-server:
+          sts-provider:
             token-uri: ${params.oauth2.issuerUri}/oauth2/token
 
   zipkin:

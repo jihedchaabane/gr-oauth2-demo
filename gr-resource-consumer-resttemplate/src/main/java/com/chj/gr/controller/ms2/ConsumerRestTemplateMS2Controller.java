@@ -1,6 +1,5 @@
 package com.chj.gr.controller.ms2;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.chj.gr.config.properties.ServiceParamsProperties;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -19,9 +20,14 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 public class ConsumerRestTemplateMS2Controller {
 
-    @Autowired
-    @Qualifier("restTemplate")
-    private RestTemplate restTemplate;
+	private RestTemplate restTemplate;
+    private ServiceParamsProperties serviceParamsProperties;
+
+    public ConsumerRestTemplateMS2Controller(@Qualifier("restTemplate") RestTemplate restTemplate,
+			ServiceParamsProperties serviceParamsProperties) {
+		this.restTemplate = restTemplate;
+		this.serviceParamsProperties = serviceParamsProperties;
+	}
 
     @Operation(summary = "Call GR-MS2-RESOURCE", security = @SecurityRequirement(name = "oauth2"))
     @GetMapping("/call-ms2-protected")
@@ -32,7 +38,7 @@ public class ConsumerRestTemplateMS2Controller {
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-        		"http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms2/gr-ms2-resource/protected/get",
+        		serviceParamsProperties.getGatewayOauth2().getUri().concat("/ms2/gr-ms2-resource/protected/get"),
                 HttpMethod.GET,
                 entity,
                 String.class
@@ -44,7 +50,8 @@ public class ConsumerRestTemplateMS2Controller {
     @GetMapping("/call-ms2-public")
     public String callMs2Public() {
     	
-        String url = "http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2/ms2/gr-ms2-resource/public/get";
-        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " + restTemplate.getForObject(url, String.class);
+        String url = serviceParamsProperties.getGatewayOauth2().getUri().concat("/ms2/gr-ms2-resource/public/get");
+        return "GR-RESOURCE-CONSUMER-RESTTEMPLATE ==> SPRINGBOOT-CONF-GATEWAY-API-OAUTH2 ==> " 
+        		+ restTemplate.getForObject(url, String.class);
     }
 }

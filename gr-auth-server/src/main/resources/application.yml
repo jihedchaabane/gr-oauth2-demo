@@ -2,7 +2,7 @@ server.port: 8764
 
 spring:
   application:
-    name: gr-auth-server
+    name: springboot-conf-sts-authorization-server-db
   cloud:
     discovery:
       enabled: true

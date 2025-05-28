@@ -35,7 +35,7 @@ params:
   gatewayOauth2:
     uri: http://SPRINGBOOT-CONF-GATEWAY-API-OAUTH2
   swaggerAggregator:
-    uri: http://localhost:8765
+    uri: http://localhost:8766
   zipkin:
     uri: http://localhost:9411
   keystore:
@@ -55,4 +55,4 @@ caller:
       clientId: gr-ms3-resource
       clientSecret: ms3-resource
       scopes: ms3.read,actuator.read
-      registrationId: gr-ms3-resource
+      registrationId: sts-default-registration

@@ -78,7 +78,7 @@ public class AuthServerSecurityConfig {
               /**
         		.issuer("http://localhost:8764")
         		@TODO try to replace it with eureka discovery alternative.	
-				.issuer("http://GR-AUTH-SERVER")
+				.issuer("http://SPRINGBOOT-CONF-STS-AUTHORIZATION-SERVER-DB")
                */
         		.issuer(serviceParamsProperties.getOauth2().getIssuerUri())
         		.tokenEndpoint("/oauth2/token")

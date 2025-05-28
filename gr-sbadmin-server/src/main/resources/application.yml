@@ -11,14 +11,15 @@ spring:
       client:
         registration:
           ms3:
+            provider: sts-provider
             client-id: gr-ms3-resource
             client-secret: secret3
             scope: actuator.read
+            client-name: gr-ms3-resource-registration
             authorization-grant-type: client_credentials
             client-authentication-method: client_secret_basic
-            provider: gr-auth-server
         provider:
-          gr-auth-server:
+          sts-provider:
             token-uri: ${params.oauth2.issuerUri}/oauth2/token
 #############################################################
 # java -jar fakesmtp-2.0.jar -p 2525

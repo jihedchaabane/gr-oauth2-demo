@@ -22,9 +22,7 @@ pipeline {
             steps {
                 script {
                     def modules = [
-                        'gr-eureka-server',
                         'gr-auth-server',
-                        'gr-api-gateway',
                         'gr-sbadmin-server',
                         'gr-conf-aggregator-server',
                         'gr-ms1-resource',

@@ -11,13 +11,14 @@ spring:
       client:
         registration:
           ms1:
-            client-id: gr-ms1-resource
-            client-secret: ms1-resource
-            scope: ms1.read,ms2.read
+            provider: sts-provider
+            client-id: ${caller.destination.client0.clientId}
+            client-secret: ${caller.destination.client0.clientSecret}
+            scope: ${caller.destination.client0.scopes}
+            client-name: ${caller.destination.client0.registrationId}
             authorization-grant-type: client_credentials
-            provider: gr-auth-server
         provider:
-          gr-auth-server:
+          sts-provider:
             token-uri: ${params.oauth2.issuerUri}/oauth2/token
       resourceserver:
         jwt:

@@ -172,9 +172,7 @@
   	</build>
 
 	<modules>
-		<module>gr-eureka-server</module>
 		<module>gr-auth-server</module>
-		<module>gr-api-gateway</module>
 		<module>gr-sbadmin-server</module>
 		<module>gr-conf-aggregator-server</module>
 

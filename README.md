@@ -3,8 +3,8 @@
 http://localhost:8761/							==> GR-EUREKA-SERVER
 http://localhost:8763/							==> GR-SBADMIN-SERVER
 http://localhost:8764/							==> GR-AUTH-SERVER
-http://localhost:7766/							==> GR-API-GATEWAY
-http://localhost:8765/							==> GR-CONF-AGGREGATOR-SERVER
+http://localhost:8765/							==> GR-API-GATEWAY
+http://localhost:8766/							==> GR-CONF-AGGREGATOR-SERVER
 
 http://localhost:1201/swagger-ui/index.html		==> GR-MS1-RESOURCE
 http://localhost:1202/swagger-ui/index.html		==> GR-MS2-RESOURCE
